@@ -1,0 +1,110 @@
+.btn {
+   position: relative;
+   display: inline-block;
+   padding: 8px 20px;
+   color: #fff;
+   background-color: hsl(214, 84%, 56%);
+   font-size: 1rem;
+   font-weight: 600;
+   line-height: 1;
+   border-style: none;
+   outline: none;
+   text-align: center;
+   text-decoration: none;
+   transform: translate3d(0, 0, 0);
+   transition: all .3s;
+   user-select: none;
+   appearance: none;
+   -webkit-user-select: none;
+   backface-visibility: hidden;
+   touch-action: manipulation;
+   overflow: hidden;
+   white-space: nowrap;   
+  
+   &:hover {
+      background-color: hsl(214, 84%, 46%);
+      box-shadow: 0 5px 30px rgba(0, 0, 0, .05), 
+                  0 1px 4px rgba(0, 0, 0, .05);
+      opacity: 1;
+      transform: translateY(0);
+      transition-duration: .35s;
+      
+      &:after {
+         opacity: .5;
+      }
+   }
+
+   &:active {
+      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .1),
+                  0 0 10px 0 rgba(0, 0, 0, .1), 
+                  0 1px 4px -1px rgba(0, 0, 0, .1);
+      transform: translateY(2px);
+      transition-duration: .35s;
+
+      &:after {
+         opacity: 1;
+      }
+   }
+
+   &:not(:disabled) {
+      cursor: pointer;
+   }
+
+   &#{&}-close {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      right: 0;
+      padding: 5px;
+      margin: 20px;
+      border-radius: 3px;
+      z-index: 1001;
+   }
+
+    &#{&}-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+
+      &:hover {
+         color: rgba(255, 255, 255, 0.6);
+      }
+      &:active {
+         color: #ffffff;
+      }
+   }
+
+   @each $color in map-keys($theme-colors) {
+      &-#{$color} {
+         @include set-colors(map-get($theme-colors, $color), 0%);
+   
+         &:hover {
+            @include set-colors(map-get($theme-colors, $color), 7%);
+         }
+
+         &:active {
+            @include set-colors(map-get($theme-colors, $color), 12%);
+         }
+      }
+   }
+
+   &-transparent {
+      background-color: transparent;
+   }
+
+   &:disabled {
+      color: shade($muted, 30%);
+      background-color: $muted;
+      transform: none;
+      box-shadow: none;      
+   }
+}
+
+
+

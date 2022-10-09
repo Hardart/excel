@@ -1,0 +1,70 @@
+.card {
+   position: relative;
+   @include display-flex(column);
+   cursor: default;
+   overflow: hidden;
+
+
+   &-media {
+      img, video {
+         width: 100%;
+      }
+   }
+   
+   &-body {
+      padding: 10px 12px;
+      @each $letter, $value in $gaps {
+         @media (min-width: map-get($breakpoints, $letter)) {
+            @if $value < 35px {
+               padding:  $value;
+            }
+         }
+      }
+   }
+
+   &__title {
+      display: inline;
+      // max-width: 80%;
+      font-size: 1.2rem;
+      font-weight: 600;
+      overflow-wrap: break-word;
+      
+      
+   }
+
+   &__text {
+      font-size: 0.87rem;
+      overflow-wrap: break-word;
+      margin-top: 20px;
+   }
+
+   &__badge {
+      position: absolute;
+      max-width: 30%;
+      top: 10px;
+      right: 10px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: $small;
+      text-transform: uppercase;
+
+      @media (min-width: $breakpoint-medium) {
+         top: 15px;
+         right: 15px;
+         font-size: $standart;
+         padding: 3px 7px;
+      }
+
+      @each $color in map-keys($theme-colors) {
+         &.badge-#{$color} {
+            @include set-colors(map-get($theme-colors, $color), 0%);
+         }
+      }
+   }
+
+   @each $color in map-keys($theme-colors) {
+      &-#{$color} {
+         @include set-colors(map-get($theme-colors, $color), 0%);
+      }
+   }
+}

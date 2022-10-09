@@ -1,0 +1,50 @@
+:root {
+   --app-white: #ffffff;
+   --app-white-soft: #f8f8f8;
+   --app-white-mute: #f2f2f2;
+ 
+   --app-black: #181818;
+   --app-black-soft: #222222;
+   --app-black-mute: #282828;
+ 
+   --app-indigo: #2c3e50;
+ 
+   --app-divider-light-1: rgba(60, 60, 60, 0.29);
+   --app-divider-light-2: rgba(60, 60, 60, 0.12);
+   --app-divider-dark-1: rgba(84, 84, 84, 0.65);
+   --app-divider-dark-2: rgba(84, 84, 84, 0.48);
+ 
+   --app-text-light-1: var(--app-indigo);
+   --app-text-light-2: rgba(60, 60, 60, 0.66);
+   --app-text-dark-1: var(--app-white);
+   --app-text-dark-2: rgba(235, 235, 235, 0.64);
+ }
+ 
+ /* semantic color variables for this project */
+ :root {
+   --color-background: var(--app-white);
+   --color-background-soft: var(--app-white-soft);
+   --color-background-mute: var(--app-white-mute);
+ 
+   --color-border: var(--app-divider-light-2);
+   --color-border-hover: var(--app-divider-light-1);
+ 
+   --color-heading: var(--app-text-light-1);
+   --color-text: var(--app-text-light-1);
+ 
+   --section-gap: 160px;
+ }
+ 
+ @media (prefers-color-scheme: dark) {
+   :root {
+     --color-background: var(--app-black);
+     --color-background-soft: var(--app-black-soft);
+     --color-background-mute: var(--app-black-mute);
+ 
+     --color-border: var(--app-divider-dark-2);
+     --color-border-hover: var(--app-divider-dark-1);
+ 
+     --color-heading: var(--app-text-dark-1);
+     --color-text: var(--app-text-dark-2);
+   }
+ }

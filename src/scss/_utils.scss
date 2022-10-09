@@ -1,0 +1,98 @@
+.h-100 {
+   height: max-content;
+}
+
+.text-center {
+   text-align: center !important;
+
+   & > * {
+      margin: auto;
+   }
+}
+
+.remove-p {
+   padding: 0 !important;
+}
+
+// margins and paddings
+@each $value, $size in $spacing {
+   .p-#{$value} {
+      padding: $size;
+   }
+   .px-#{$value} {
+      padding: 0 $size;
+   }
+   .py-#{$value} {
+      padding: $size 0;
+   }
+   .pt-#{$value} {
+      padding-top: $size;
+   }
+   .pb-#{$value} {
+      padding-bottom: $size;
+   }
+   .m-#{$value} {
+      margin: $size;
+   }
+   .mx-#{$value} {
+      margin: 0 $size;
+   }
+   .my-#{$value} {
+      margin: $size 0;
+   }
+   .ml-#{$value} {
+      margin-left: $size;
+   }
+   .mr-#{$value} {
+      margin-right: $size;
+   }
+   .mb-#{$value} {
+      margin-bottom: $size;
+   }
+   .mt-#{$value} {
+      margin-top: $size;
+   }
+
+   .bdr-#{$value} {
+      border-radius: $size;
+   }
+   
+}
+
+
+// media screen display and visibility
+@each $letter, $breakpoint in $breakpoints {
+   @media (max-width: $breakpoint) {
+      .hidden\@#{$letter} {
+         visibility: hidden;
+      }
+   }
+
+   @media (min-width: $breakpoint) {
+      .visible\@#{$letter} {
+         display: none;
+      }
+   }
+}
+
+// background colors
+@each $color in map-keys($theme-colors) {
+   .bg-#{$color} {
+      @include set-colors(map-get($theme-colors, $color), 0%);
+   }
+}
+
+// height values
+@each $value, $size in $height-values {
+   .h-#{$value} {
+      height: $size;
+   }
+}
+
+.overflow-h {
+   overflow: hidden;
+}
+
+.overflow-y {
+   overflow-y: scroll !important;
+}
