@@ -1,0 +1,42 @@
+.table {
+   display: table;
+   width: 100%;
+   border-collapse: collapse;
+   border-spacing: 0;
+
+   th.shrink-w {
+      width: 1px;
+      text-align: center;
+   }
+
+   .expand-w {
+      min-width: 50px;
+   }
+
+   th,
+   td {
+      display: table-cell;
+      padding: 5px 10px;
+      text-align: left;
+   }
+   th {
+      font-weight: 500;
+   }
+   
+   tbody {
+      tr {
+         border-top: 1px solid mix(#000000, $muted, 30);
+         cursor: default;
+
+         &:hover {
+            background-color: $secondary;
+         }
+      }
+   }
+
+   &.dark-mode {
+      tbody tr:hover {
+         @include dark-theme-color;
+      }
+   }
+}

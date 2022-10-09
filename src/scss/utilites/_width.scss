@@ -1,0 +1,38 @@
+// width
+@each $value, $w in $width-values {
+   .w-#{$value} {
+      width: $w;
+   }
+   .childs-w-#{$value} > * {
+      width: $w;
+   }
+   
+}
+
+.w-expand {
+   flex: 1;
+   width: auto;
+}
+
+.w-collapse {
+   width: 50px;
+}
+
+// media screen width
+@each $letter, $breakpoint in $breakpoints {
+   @media (min-width: $breakpoint) {
+      @each $value, $w in $width-values {
+         .w-#{$value}\@#{$letter} {
+            width: $w;
+         }
+         .childs-w-#{$value}\@#{$letter} > * {
+            width: $w;
+         }
+         .w-expand\@#{$letter} {
+            flex: 1;
+            min-width: 1px;
+         }
+      }
+   }
+}
+

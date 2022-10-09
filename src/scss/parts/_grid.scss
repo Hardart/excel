@@ -1,0 +1,27 @@
+.grid {
+   @include display-flex;
+   flex-wrap: wrap;
+   margin-left: -15px;
+   height: inherit;
+
+   > * {
+      width: 100%;
+      padding-left: 15px;
+      height: inherit;
+   }
+
+   &-collapse {
+      margin-left: 0;
+
+      > * {
+         padding-left: 0;
+      }
+   }
+}
+
+// width
+@each $value, $w in $spacing {
+   .gy-#{$value} > * {
+      margin-bottom: $w;
+   }
+}

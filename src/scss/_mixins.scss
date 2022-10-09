@@ -1,0 +1,55 @@
+//flex grid
+@mixin display-flex($direction: row) {
+   display: flex;
+   flex-direction: $direction;
+}
+
+@mixin justify-align-all($direction: start) {
+   justify-content: $direction;
+   align-items: $direction;
+}
+
+@mixin justify-align-separate($justify: start, $align: start) {
+   justify-content: $justify;
+   align-items: $align;
+}
+
+@mixin flex-wrap {
+   flex-wrap: wrap;
+}
+
+//theme color
+@mixin dark-theme-color($dark-mode: true) {
+   @if $dark-mode {
+      background-color: tint($dark, 2%);
+   }
+}
+
+//colors
+@mixin set-colors ($color, $percentage){
+   @if lightness($color) > 45% {
+      color: tint($secondary, $percentage);
+      background-color: shade($color, $percentage);
+   } @else {
+      color: shade($muted, $percentage);
+      background-color: tint($color, $percentage);
+   }
+}
+
+
+//fonts
+@mixin font($weight: 400, $size: 22px, $style: normal) {
+   font-style: $style;
+   font-weight: $weight;
+   font-size: $size;
+}
+
+//text
+@mixin text-center {
+   text-align: center;
+}
+
+//animation
+@mixin animate($duration: 0.3s) {
+   transition: all $duration ease-in-out;
+}

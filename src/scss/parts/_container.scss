@@ -1,0 +1,22 @@
+.container {
+   padding: 0 10px;
+   margin: auto;
+
+   &-s {
+      max-width: $breakpoint-small;
+   }
+   &-m {
+      max-width: $breakpoint-medium;
+   }
+   &-l {
+      max-width: $breakpoint-large;
+   }
+}
+
+@each $letter, $value in $gaps {
+   @media (min-width: map-get($breakpoints, $letter)) {
+      .container {
+         padding: 0 $value;
+      }
+   }
+}

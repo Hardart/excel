@@ -1,0 +1,5 @@
+svg {
+   transition-property: background-color, color;
+   transition-duration: $animation-duration;
+   transition-timing-function: ease;
+}
