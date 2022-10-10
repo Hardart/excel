@@ -4,8 +4,10 @@
    @each $color in map-keys($theme-colors) {
       &-#{$color} {
          @include set-colors(map-get($theme-colors, $color), 0%);
-   
-        
       }
+   }
+
+   &-collapse {
+    padding: 0;
    }
 }
