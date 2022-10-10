@@ -10,6 +10,17 @@ const filename = (ext) => (devMode ? `[name].[contenthash].${ext}` : `[name].${e
 const entry = (ext) => (devMode ? `[name].[contenthash].${ext}` : `[name].${ext}`)
 const folder = (ext) => (ext == 'html' ? filename(ext) : `assets/${ext}/${filename(ext)}`)
 
+const plugins = [
+  new CleanWebpackPlugin(),
+  new HTMLWebpackPlugin({
+    template: 'index.html',
+  }),
+  new MiniCssExtractPlugin({
+    filename: devMode ? `[name].css` : folder('css'),
+  }),
+  new ESLintPlugin(),
+]
+
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
@@ -38,16 +49,7 @@ module.exports = {
     hot: true,
   },
 
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HTMLWebpackPlugin({
-      template: 'index.html',
-    }),
-    new MiniCssExtractPlugin({
-      filename: folder('css'),
-    }),
-    new ESLintPlugin(),
-  ],
+  plugins,
   module: {
     rules: [
       {

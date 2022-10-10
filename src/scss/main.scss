@@ -4,5 +4,11 @@
 @import 'mixins';
 @import 'base';
 @import 'parts';
+@import 'custom';
 @import 'utilites';
 @import 'utils';
+
+
+#app {
+   position: relative;
+}
