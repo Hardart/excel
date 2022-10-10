@@ -13,7 +13,6 @@
     "max-len": ["error", { "code": 90 }],
     "object-curly-spacing": "off",
     "require-jsdoc": "off",
-    "linebreak-style": ["error", "windows"],
     "arrow-parens": "off"
   },
   "extends": ["eslint:recommended", "google"]
