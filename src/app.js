@@ -4,6 +4,7 @@ import components from './components/excel/composeComponents'
 
 const app = Excel.create('#app', {
   components: components,
+  baseClass: 'root',
 })
 
 app.render()

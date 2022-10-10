@@ -10,7 +10,7 @@
   },
   "rules": {
     "semi": "off",
-    "max-len": ["error", { "code": 90 }],
+    "max-len": ["error", { "code": 120 }],
     "object-curly-spacing": "off",
     "require-jsdoc": "off",
     "arrow-parens": "off"
