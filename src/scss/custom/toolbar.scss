@@ -1,0 +1,21 @@
+#app .toolbar {
+   @include display-flex();
+   align-items: center;
+
+    & > *[class^="toolbar__"] {
+      @extend .toolbar;
+      
+      & > span {
+         margin-right: 5px;
+      }
+
+      &:not(:last-child) {
+         margin-right: 20px;
+      }
+
+   }
+
+   .material-symbols-outlined {
+      font-size: 18px;
+    }
+}

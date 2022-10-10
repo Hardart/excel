@@ -4,12 +4,12 @@
    flex-direction: $direction;
 }
 
-@mixin justify-align-all($direction: start) {
+@mixin justify-align-all($direction: flex-start) {
    justify-content: $direction;
    align-items: $direction;
 }
 
-@mixin justify-align-separate($justify: start, $align: start) {
+@mixin justify-align-separate($justify: flex-start, $align: flex-start) {
    justify-content: $justify;
    align-items: $align;
 }
