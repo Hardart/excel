@@ -1,0 +1,92 @@
+$dragableElWidth: 4px;
+
+.table {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 !important;
+  overflow-x: auto;
+
+  &__head {
+    @include display-flex;
+    flex: none;
+
+    & > * {
+      position: relative;
+      @include display-flex;
+      @include justify-align-all(center);
+      width: 100px;
+      min-width: 40px;
+      min-height: 20px;
+      height: 24px;
+      background-color: $muted;
+      @include set-border(bottom);
+      @include set-border(right);
+      flex: none;
+      user-select: none;
+      font-size: 15px;
+    }
+  }
+
+  &__body {
+
+    .row {
+      @extend .table__head;
+      @include justify-align(flex-start, center);
+
+      .cell {
+        padding: 3px 5px;
+        @include justify-align(flex-end, center);
+        text-align: right;
+        background-color: transparent;
+        overflow: hidden;
+        
+        &.selected {
+          z-index: 2;
+          @include set-outline(_, $secondary, 2px);
+        }
+      } 
+    }
+  }
+
+  .row-label {
+    position: relative;
+    width: 40px;
+    min-width: 40px;
+    background-color: $muted;
+    user-select: none;
+  }
+
+  .column span {
+    width: $dragableElWidth;
+    top: 0;
+    right: -2px;
+    bottom: 0;
+    cursor: e-resize;
+  }
+
+  .row span {
+    height: $dragableElWidth;
+    left: 0;
+    bottom: -2px;
+    right: 0;
+    cursor: s-resize;
+  }
+
+  span {
+    position: absolute;
+    background-color: #146fef;
+    z-index: 99;
+    opacity: 0;
+
+    &:hover {
+      opacity: 1;
+      
+    }
+
+    .resizing {
+      opacity: 1;
+    }
+  }
+  
+}

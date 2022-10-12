@@ -1,27 +1,35 @@
-import $ from '@core/DomCreator'
+import DOM from '@core/DomCreator'
 
 export default class Excel {
   constructor(selector, options) {
-    this.$app = document.querySelector(selector)
+    this.$app = DOM.init(selector)
     this.components = options.components || []
+    this.baseClass = options.baseClass || 'excel'
   }
 
   static create(selector, options) {
     return new Excel(selector, options)
   }
 
-  getRoot() {
-    const $rootElement = $.create('div', `${this.components[0].baseClass}`)
-    this.components.forEach((Component) => {
-      const $element = $.create('div', `${Component.componentClass}`)
+  componentsCompose() {
+    const $rootElement = DOM.create('div', this.baseClass)
+    this.components = this.components.map((Component) => {
+      const $section = DOM.create('section', Component.sectionClasses)
+      const $element = DOM.create('div', Component.rootClasses)
       const component = new Component($element)
-      $element.insertAdjacentHTML('beforeend', component.toHTML())
-      $rootElement.insertAdjacentElement('beforeend', $element)
+      // DEBUG
+      if (component.title) window['c' + component.title] = component
+      //
+      $element.html(component.toHTML())
+      $section.append($element)
+      $rootElement.append($section)
+      return component
     })
     return $rootElement
   }
 
   render() {
-    this.$app.append(this.getRoot())
+    this.$app.append(this.componentsCompose())
+    this.components.forEach((component) => component.init())
   }
 }

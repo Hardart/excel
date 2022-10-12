@@ -10,10 +10,9 @@
   },
   "rules": {
     "semi": "off",
-    "max-len": ["error", { "code": 90 }],
+    "max-len": ["error", { "code": 120 }],
     "object-curly-spacing": "off",
     "require-jsdoc": "off",
-    "linebreak-style": ["error", "windows"],
     "arrow-parens": "off"
   },
   "extends": ["eslint:recommended", "google"]

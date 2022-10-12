@@ -1,18 +1,22 @@
 #app .toolbar {
-   @include display-flex();
-   align-items: center;
+  @include display-flex();
+  align-items: center;
 
     & > *[class^="toolbar__"] {
       @extend .toolbar;
-      
+            
       & > span {
-         margin-right: 5px;
+        padding: 5px;
+
+        &:hover {
+        background-color: $muted;
+        cursor: pointer;
+        }
       }
 
       &:not(:last-child) {
-         margin-right: 20px;
+        margin-right: 20px;
       }
-
    }
 
    .material-symbols-outlined {

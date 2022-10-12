@@ -1,0 +1,18 @@
+.formula {
+  @include display-flex;
+  padding: 0;
+
+  &__label {
+    min-width: 30px;
+    padding-right: 20px;
+    border-right: solid 1px #ccc;
+    font-style: italic;
+    font-weight: 700;
+    color: transparentize($dark, 0.5);
+  }
+
+  &__input {
+    flex-grow: 1;
+    padding: 0 10px;
+  }
+}
