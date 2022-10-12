@@ -1,30 +1,35 @@
 #app .header {
-   @include display-flex();
-   @include justify-align-separate(space-between, center);
+  @include display-flex();
+  @include justify-align(space-between, center);
 
-   &__input {
-      min-width: 20px;
-      border-width: 1px;
-      border-color: transparentize($dark, 0.7);
-      border-style: solid;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 500;
-      padding: 8px 16px 6px;
-      color: $dark;
-      background-color: $light;
-      box-shadow: 0 0 0 2px rgba(134, 140, 160, 0.02);
+  &__input {
+    min-width: 20px;
+    border-width: 1px;
+    border-color: transparentize($dark, 0.7);
+    border-style: solid;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 16px 6px;
+    color: $dark;
+    background-color: $light;
+    box-shadow: 0 0 0 2px rgba(134, 140, 160, 0.02);
 
-      &:hover {
-         box-shadow: 0 1px 0 0.5px rgba(134, 140, 160, 0.15);
-      }
+    &:hover {
+      box-shadow: 0 1px 0 0.5px rgba(134, 140, 160, 0.15);
+    }
 
-      &:focus {
-         box-shadow: 0 0 0 3px rgba(60, 98, 221, .7);
-      }
-   }
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(60, 98, 221, .7);
+    }
+  }
 
-   &__buttons {
-      @extend .header;
-   }
+  &__buttons {
+    @extend .header;
+    padding: 0;
+
+    .material-symbols-outlined {
+      font-size: 20px;
+    }
+  }
 }

@@ -11,8 +11,6 @@ nav {
    padding: 10px 0;
    list-style: none;
    background-color: $secondary;
-   
-   
 
    &__item {
       @include display-flex;
@@ -22,18 +20,6 @@ nav {
       height: 40px;
       border-radius: 50%;
       cursor: pointer;
-      
-      svg {
-         color: $muted;
-
-         &:hover {
-            color: $primary;
-         }
-
-         &:active {
-            color: $warning;
-         }
-      }
 
       a {
          text-transform: uppercase;
@@ -43,12 +29,6 @@ nav {
             color: $primary;
             position: relative;
             border: none;
-
-            polygon,
-            svg,
-            rect {
-               color: $primary;
-            }
          }
 
          img {

@@ -9,7 +9,7 @@
    align-items: $direction;
 }
 
-@mixin justify-align-separate($justify: flex-start, $align: flex-start) {
+@mixin justify-align($justify: flex-start, $align: flex-start) {
    justify-content: $justify;
    align-items: $align;
 }
@@ -34,6 +34,24 @@
       color: shade($muted, $percentage);
       background-color: tint($color, $percentage);
    }
+}
+
+
+//border
+@mixin set-border ($value: _, $color: #ccc, $width: 1px){
+  @if $value == _ {
+    border: solid $width $color;
+  } @else {
+    border-#{$value}: solid $width $color;
+  }
+}
+
+@mixin set-outline ($value: _, $color: #ccc, $width: 1px){
+  @if $value == _ {
+    outline: solid $width $color;
+  } @else {
+    outline-#{$value}: solid $width $color;
+  }
 }
 
 

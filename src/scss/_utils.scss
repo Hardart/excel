@@ -96,3 +96,16 @@
 .overflow-y {
    overflow-y: scroll !important;
 }
+
+
+
+.hr-y {
+  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
+}
+.hr-t {
+  border-top: solid 1px #ccc;
+}
+.hr-b {
+  border-bottom: solid 1px #ccc;
+}
