@@ -1,13 +1,20 @@
 import { ExcelComponent } from '@core/ExcelComponent'
 
+const options = {
+  title: 'Header',
+  listeners: ['input', 'click'],
+  section: true,
+  sectionClasses: ['section', 'section-collapse', 'py-10'],
+}
 export class Header extends ExcelComponent {
-  constructor($rootComponent) {
-    super($rootComponent, {
-      title: 'Header',
-      listeners: ['input', 'click'],
-    })
+  constructor(rootComponent) {
+    super(rootComponent, options)
   }
-  static sectionClasses = ['section', 'section-collapse', 'section-primary', 'py-5']
+
+  static get sectionClasses() {
+    if (!options.section) return null
+    return options.sectionClasses
+  }
 
   toHTML() {
     return `
@@ -19,5 +26,13 @@ export class Header extends ExcelComponent {
       <div class="btn btn-icon btn-secondary"><span class="material-symbols-outlined"> delete_forever </span></div>
     </div>
     `
+  }
+
+  // mouse events
+  onClick(event) {
+    console.log(event.target)
+  }
+  onInput() {
+    console.log('input')
   }
 }

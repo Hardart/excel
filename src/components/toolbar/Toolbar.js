@@ -1,7 +1,22 @@
 import { ExcelComponent } from '@core/ExcelComponent'
 
+const options = {
+  title: 'Toolbar',
+  listeners: ['click'],
+  section: true,
+  sectionClasses: ['section', 'section-collapse', 'py-5', 'hr-y'],
+}
+
 export class Toolbar extends ExcelComponent {
-  static sectionClasses = ['section', 'section-collapse', 'section-success', 'py-10']
+  constructor(rootComponent) {
+    super(rootComponent, options)
+  }
+
+  static get sectionClasses() {
+    if (!options.section) return null
+    return options.sectionClasses
+  }
+
   toHTML() {
     return `
     <div class="toolbar__font-style">
@@ -15,5 +30,10 @@ export class Toolbar extends ExcelComponent {
       <span class="material-symbols-outlined"> format_align_right </span>
     </div>
     `
+  }
+
+  // events
+  onClick(event) {
+    console.log(this.rootComponent)
   }
 }

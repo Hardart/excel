@@ -1,10 +1,23 @@
-class DOMCreator {
+export default class DOM {
   constructor(selector) {
     this.$node = typeof selector === 'string' ? document.querySelector(selector) : selector
   }
 
+  static init(selector) {
+    return new DOM(selector)
+  }
+
+  static create = (tagName = 'div', classes = null) => {
+    const el = document.createElement(tagName)
+    if (classes) {
+      if (typeof classes === 'string') classes = [classes]
+      el.classList.add(...classes)
+    }
+    return this.init(el)
+  }
+
   html(htmlString) {
-    if (typeof htmlString !== 'string') return this.$node.outerHtml
+    if (typeof htmlString !== 'string') return this.$node.outerHTML.trim()
     this.$node.innerHTML = htmlString
     return this
   }
@@ -15,7 +28,7 @@ class DOMCreator {
   }
 
   append(element) {
-    if (element instanceof DOMCreator) element = element.$node
+    if (element instanceof DOM) element = element.$node
     if (Element.prototype.append) {
       this.$node.append(element)
     } else {
@@ -23,18 +36,12 @@ class DOMCreator {
     }
     return this
   }
-}
 
-// function for easy dom manipulations
-export default function $(selector) {
-  return new DOMCreator(selector)
-}
-
-$.create = (tagName = 'div', classes = ['']) => {
-  const el = document.createElement(tagName)
-  if (classes) {
-    if (typeof classes === 'string') classes = [classes]
-    el.classList.add(...classes)
+  on(event, cb) {
+    this.$node.addEventListener(event, cb)
   }
-  return $(el)
+
+  off(event, cb) {
+    this.$node.removeEventListener(event, cb)
+  }
 }

@@ -1,8 +1,8 @@
-import $ from '@core/DomCreator'
+import DOM from '@core/DomCreator'
 
 export default class Excel {
   constructor(selector, options) {
-    this.$app = $(selector)
+    this.$app = DOM.init(selector)
     this.components = options.components || []
     this.baseClass = options.baseClass || 'excel'
   }
@@ -11,12 +11,15 @@ export default class Excel {
     return new Excel(selector, options)
   }
 
-  getRoot() {
-    const $rootElement = $.create('div', this.baseClass)
+  componentsCompose() {
+    const $rootElement = DOM.create('div', this.baseClass)
     this.components = this.components.map((Component) => {
-      const $section = $.create('section', Component.sectionClasses)
-      const $element = $.create('div', Component.rootClasses)
+      const $section = DOM.create('section', Component.sectionClasses)
+      const $element = DOM.create('div', Component.rootClasses)
       const component = new Component($element)
+      // DEBUG
+      if (component.title) window['c' + component.title] = component
+      //
       $element.html(component.toHTML())
       $section.append($element)
       $rootElement.append($section)
@@ -26,7 +29,7 @@ export default class Excel {
   }
 
   render() {
-    this.$app.append(this.getRoot())
-    console.log(this.components)
+    this.$app.append(this.componentsCompose())
+    this.components.forEach((component) => component.init())
   }
 }

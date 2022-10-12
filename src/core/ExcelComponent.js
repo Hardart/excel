@@ -1,11 +1,13 @@
 import { DOMListener } from '@core/DomListener'
 
 export class ExcelComponent extends DOMListener {
-  constructor($rootComponent, options = {}) {
-    super($rootComponent, options.listeners)
+  constructor(rootComponent, options = {}) {
+    super(rootComponent, options.listeners)
+    this.title = options.title || ''
   }
+
   static get rootClasses() {
-    return [`${this.name.toLowerCase()}`, 'container']
+    return [`${this.name.toLowerCase()}`, 'px-20']
   }
 
   toHTML() {
@@ -14,5 +16,9 @@ export class ExcelComponent extends DOMListener {
 
   init() {
     this.initListeners()
+  }
+
+  destroy() {
+    this.removeListeners()
   }
 }
