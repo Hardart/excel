@@ -2,10 +2,13 @@ $dragableElWidth: 4px;
 
 .table {
   position: absolute;
+  top: 0;
   left: 0;
+  bottom: 0;
   right: 0;
   padding: 0 !important;
   overflow-x: auto;
+  overflow-y: scroll;
 
   &__head {
     @include display-flex;
@@ -14,7 +17,7 @@ $dragableElWidth: 4px;
     & > * {
       position: relative;
       @include display-flex;
-      @include justify-align-all(center);
+      @include flex-align(center);
       width: 100px;
       min-width: 40px;
       min-height: 20px;
@@ -26,6 +29,11 @@ $dragableElWidth: 4px;
       user-select: none;
       font-size: 15px;
     }
+
+    .first-cell {
+      width: 40px;
+      min-height: 24px;
+    }
   }
 
   &__body {
@@ -33,10 +41,15 @@ $dragableElWidth: 4px;
     .row {
       @extend .table__head;
       @include justify-align(flex-start, center);
+      min-height: 20px;
+      height: 24px;
 
       .cell {
+        @include display-flex;
+        @include flex-align(flex-end);
+        height: 100%;
+        min-height: 20px;
         padding: 3px 5px;
-        @include justify-align(flex-end, center);
         text-align: right;
         background-color: transparent;
         overflow: hidden;
@@ -45,16 +58,18 @@ $dragableElWidth: 4px;
           z-index: 2;
           @include set-outline(_, $secondary, 2px);
         }
-      } 
-    }
-  }
+      }
 
-  .row-label {
-    position: relative;
-    width: 40px;
-    min-width: 40px;
-    background-color: $muted;
-    user-select: none;
+      .first-cell {
+        position: relative;
+        width: 40px;
+        min-width: 40px;
+        height: 100%;
+        min-height: 20px;
+        background-color: $muted;
+        user-select: none;
+      }
+    }
   }
 
   .column span {
@@ -81,12 +96,10 @@ $dragableElWidth: 4px;
 
     &:hover {
       opacity: 1;
-      
     }
 
-    .resizing {
+    &.resizing {
       opacity: 1;
     }
   }
-  
 }

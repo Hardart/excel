@@ -1,5 +1,5 @@
 import { setupAlphabetCodes } from '@core/helpers'
-// eslint-disable-next-line no-unused-vars
+
 const CHAR_CODE = setupAlphabetCodes()
 const table = []
 const cells = []
@@ -17,38 +17,38 @@ function setupTableHead() {
 
 function setupTableBody(rowCount) {
   for (let i = 0; i < columnsLength; i++) {
-    cells.push(createCell())
+    cells.push(createCell(i + 1))
   }
   const bodyRows = Array(rowCount).fill('').map(toRow)
   return bodyRows.join('')
 }
 
-function toColumn(el) {
+function toColumn(el, i) {
   return `
-  <div class="column" data-resize="col">
+  <div class="column" data-element="resizable" data-col="${i + 1}">
     ${el}
-    <span></span>
+    <span data-resize="col"></span>
   </div>`
 }
 
 function toRow(_, index) {
   return `
-  <div class="row" data-resize="row">
+  <div class="row" data-element="resizable">
     ${rowLabelTemplate(index + 1)}${cells.join('')}
   </div>
   `
 }
 
-function createCell() {
+function createCell(index) {
   return `
-    <div class="cell" contenteditable></div>`
+    <div class="cell" data-col="${index}" contenteditable></div>`
 }
 
 function rowLabelTemplate(content = '') {
   return `
-  <div class="row-label">
+  <div class="first-cell">
     ${content}
-    <span></span>
+    <span data-resize="row"></span>
   </div>`
 }
 

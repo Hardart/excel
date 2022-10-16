@@ -15,5 +15,8 @@ $shadow-values: (
   .shadow-#{$value} {
     box-shadow: 0 1px $size * 3 $size rgba(0, 0, 0, 0.05 * $value);
   }
+  .t-shadow-#{$value} {
+    text-shadow: 0.1 * $size 0.5 * $size 0.5 * $size rgba(0, 0, 0, 0.1 * $value);
+  }
   
 }

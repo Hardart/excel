@@ -11,3 +11,15 @@ export function setupAlphabetCodes() {
   }
   return alphabet
 }
+
+export function isArray(element) {
+  return Array.isArray(element)
+}
+
+export function isString(str) {
+  return typeof str === 'string'
+}
+
+export async function delayTimeOut(ms = 0) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}

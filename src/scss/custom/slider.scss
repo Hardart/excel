@@ -1,0 +1,53 @@
+.slider {
+  position: relative;
+  width: 600px;
+  overflow: hidden;
+  margin: auto;
+  padding: 0 !important;
+
+  &-container {
+    @include display-flex;
+    padding: 0 !important;
+    
+    
+    > div {
+      position: relative;
+      
+      flex: none;
+      width: calc(100% * 1 / 3.001);
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .slide-content {
+        @include absolute-center;
+        font-size: 3rem;
+        color: $light;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &-nav {
+    span {
+      position: absolute;
+      display: block;
+      top: 50%;
+      width: 30px;
+      height: 30px;
+      background-color: $success;
+      transform: translateY(-50%);
+
+      &.left {
+        left: 10px;
+      }
+
+      &.right {
+        right: 10px;
+      }
+    }
+    
+  }
+}
