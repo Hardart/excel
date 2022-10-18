@@ -1,0 +1,55 @@
+.slider {
+  position: relative;
+  margin: auto;
+  width: 800px;
+  height: auto;
+  overflow: hidden;
+  padding: 0 !important;
+
+  &-container {
+    @include display-flex;
+    @include flex-no-wrap;
+    padding: 0 !important;
+    
+    
+    > div {
+      position: relative;
+      flex: none;
+      max-width: 100%;
+
+      img {
+        vertical-align: middle;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .slide-content {
+        @include absolute-center;
+        font-size: 3rem;
+        color: $light;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &-nav {
+    span {
+      position: absolute;
+      display: block;
+      top: 50%;
+      width: 30px;
+      height: 30px;
+      background-color: $success;
+      transform: translateY(-50%);
+
+      &.left {
+        left: 10px;
+      }
+
+      &.right {
+        right: 10px;
+      }
+    }
+    
+  }
+}

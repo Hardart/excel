@@ -4,9 +4,9 @@
    flex-direction: $direction;
 }
 
-@mixin justify-align-all($direction: flex-start) {
-   justify-content: $direction;
-   align-items: $direction;
+@mixin flex-align($direction: flex-start) {
+  justify-content: $direction;
+  align-items: $direction;
 }
 
 @mixin justify-align($justify: flex-start, $align: flex-start) {
@@ -16,6 +16,10 @@
 
 @mixin flex-wrap {
    flex-wrap: wrap;
+}
+
+@mixin flex-no-wrap {
+   flex-wrap: nowrap;
 }
 
 //theme color
@@ -36,16 +40,24 @@
    }
 }
 
-
 //border
-@mixin set-border ($value: _, $color: #ccc, $width: 1px){
-  @if $value == _ {
-    border: solid $width $color;
-  } @else {
-    border-#{$value}: solid $width $color;
+@mixin set-border ($side: _, $color: #ccc, $width: 1px){
+  
+  @if $color == _ {
+    $color: #ccc;
   }
+
+  @if $side == _ {
+    border: solid  $color;
+    border-width:  $width;
+  } @else {
+    border-#{$side}:$width solid $color;
+  }
+  
+  
 }
 
+//outline
 @mixin set-outline ($value: _, $color: #ccc, $width: 1px){
   @if $value == _ {
     outline: solid $width $color;
@@ -53,7 +65,6 @@
     outline-#{$value}: solid $width $color;
   }
 }
-
 
 //fonts
 @mixin font($weight: 400, $size: 22px, $style: normal) {
@@ -70,4 +81,20 @@
 //animation
 @mixin animate($duration: 0.3s) {
    transition: all $duration ease-in-out;
+}
+
+//transform
+@mixin absolute-center(){
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin set-absolute($top: 0, $left: 0, $bottom: 0, $right: 0){
+  position: absolute;
+  top: $top;
+  left: $left;
+  bottom: $bottom;
+  right: $right;
 }

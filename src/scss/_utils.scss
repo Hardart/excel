@@ -53,12 +53,19 @@
       margin-top: $size;
    }
 
+   // REMOVE FROM HERE!!!!
    .bdr-#{$value} {
       border-radius: $size;
    }
    
 }
 
+//gaps
+@each $value, $size in $spacing {
+  .g-#{$value} {
+     gap: $size;
+  }  
+}
 
 // media screen display and visibility
 @each $letter, $breakpoint in $breakpoints {

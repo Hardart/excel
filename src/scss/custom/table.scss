@@ -1,92 +1,83 @@
-$dragableElWidth: 4px;
+$dragableElSize: 4px;
+$cellHeight: 24px;
 
 .table {
-  position: absolute;
-  left: 0;
-  right: 0;
+  @include set-absolute();
+  min-height: 500px;
   padding: 0 !important;
   overflow-x: auto;
+  overflow-y: scroll;
+  @include set-border(top);
 
-  &__head {
+
+  &__head, .row {
     @include display-flex;
-    flex: none;
-
-    & > * {
-      position: relative;
-      @include display-flex;
-      @include justify-align-all(center);
-      width: 100px;
-      min-width: 40px;
-      min-height: 20px;
-      height: 24px;
-      background-color: $muted;
-      @include set-border(bottom);
-      @include set-border(right);
-      flex: none;
-      user-select: none;
-      font-size: 15px;
-    }
   }
 
   &__body {
-
-    .row {
-      @extend .table__head;
-      @include justify-align(flex-start, center);
-
-      .cell {
-        padding: 3px 5px;
-        @include justify-align(flex-end, center);
-        text-align: right;
-        background-color: transparent;
-        overflow: hidden;
-        
-        &.selected {
-          z-index: 2;
-          @include set-outline(_, $secondary, 2px);
-        }
-      } 
-    }
+    @include display-flex(column);
   }
 
-  .row-label {
+  .column, .cell {
     position: relative;
-    width: 40px;
+    width: 100px;
     min-width: 40px;
+    height: $cellHeight;
+    flex: none;
+    padding: 2px 5px;
+    text-align: center;
+    @include set-border(left);
+    @include set-border(bottom);
+  }
+
+  .column, .first-cell {
     background-color: $muted;
     user-select: none;
   }
 
-  .column span {
-    width: $dragableElWidth;
-    top: 0;
-    right: -2px;
+  .cell {
+    background-color: #fff;
+    text-align: left;
+    user-select: text;
+    height: 100%;
+    white-space: nowrap;
+
+    &.selected {
+      border: none;
+      outline: 3px solid $success;
+      z-index: 2;
+    }
+  }
+
+  .first-cell {
+    @include display-flex;
+    @include flex-align(center);
+    position: relative;
+    width: 40px;
+    flex: none;
+    
+    @include set-border(bottom);
+  }
+
+  [data-resize] {
+    position: absolute;
+    right: 0;
     bottom: 0;
+    z-index: 10;
+
+    &:hover, &.resizing {
+      background-color: $primary;
+    }
+  }
+
+  [data-resize=col] {
+    top: 0;
+    width: $dragableElSize;
     cursor: e-resize;
   }
-
-  .row span {
-    height: $dragableElWidth;
+  [data-resize=row] {
     left: 0;
-    bottom: -2px;
-    right: 0;
+    height: $dragableElSize;
     cursor: s-resize;
   }
-
-  span {
-    position: absolute;
-    background-color: #146fef;
-    z-index: 99;
-    opacity: 0;
-
-    &:hover {
-      opacity: 1;
-      
-    }
-
-    .resizing {
-      opacity: 1;
-    }
-  }
-  
 }
