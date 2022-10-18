@@ -9,16 +9,14 @@ export class DOMListener {
   initListeners() {
     this.listeners.forEach((listener) => {
       const method = composeEventName(listener)
-      if (!this[method]) throw new Error(`Method ${method} is not define on Component ${this.title}`)
+      if (!this[method]) throw new Error(`Method ${method} is not define on ${this.title} Component `)
       this[method] = this[method].bind(this)
-      // addEventListener
       this.rootComponent.on(listener, this[method])
     })
   }
   removeListeners() {
     this.listeners.forEach((listener) => {
       const method = composeEventName(listener)
-      // addEventListener
       this.rootComponent.off(listener, this[method])
     })
   }
