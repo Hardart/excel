@@ -1,22 +1,24 @@
 .slider {
   position: relative;
-  width: 600px;
-  overflow: hidden;
   margin: auto;
+  width: 800px;
+  height: auto;
+  overflow: hidden;
   padding: 0 !important;
 
   &-container {
     @include display-flex;
+    @include flex-no-wrap;
     padding: 0 !important;
     
     
     > div {
       position: relative;
-      
       flex: none;
-      width: calc(100% * 1 / 3.001);
+      max-width: 100%;
 
       img {
+        vertical-align: middle;
         max-width: 100%;
         height: auto;
       }

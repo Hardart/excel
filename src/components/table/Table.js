@@ -1,12 +1,13 @@
-import DOM from '@core/DomCreator'
 import { ExcelComponent } from '@core/ExcelComponent'
 import createTable from '@/components/table/table.settings'
+import { resizeHandler } from './table.resize'
+import { canIStartResize } from './table.helpers'
 
 const options = {
   title: 'Table',
-  listeners: ['mousedown'],
+  listeners: ['mousedown', 'input', 'keydown'],
   section: true,
-  sectionClasses: ['section', 'section-collapse', 'h-l', 'overflow-h'],
+  sectionClasses: ['section', 'section-collapse'],
 }
 
 export class Table extends ExcelComponent {
@@ -20,42 +21,40 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable(20)
+    return createTable(40)
   }
 
   // events
   onMousedown(event) {
-    if (!event.target.dataset.resize) return
-    const resize = DOM.init(event.target)
-    const type = resize.attrsData.resize
-    const parent = resize.closest('[data-element="resizable"')
-    const coords = parent.getCoords()
-    const resizeCoords = resize.getCoords()
-    const cells = this.rootComponent.findAll(`[data-col="${parent.attrsData.col}"]`)
-    let value
+    if (!canIStartResize) return
+    resizeHandler(this.rootComponent, event)
+  }
 
-    document.onmousemove = (e) => {
-      resize.add(['resizing'])
-      const deltaX = coords.width + (e.pageX - coords.right) + 2
-      const deltaY = coords.height + (e.pageY - coords.bottom) + 2
-      const posX = resizeCoords.right - resizeCoords.width - e.pageX
-      const posY = resizeCoords.bottom - resizeCoords.height - e.pageY
-      value = type == 'col' ? deltaX : deltaY
-      type == 'col' ? resize.css({ right: posX + 'px' }) : resize.css({ bottom: posY + 'px' })
-    }
+  onInput(event) {
+    if (!event.target.dataset.type) return
+    // const cell = DOM.init(event.target)
+  }
 
-    document.onmouseup = (e) => {
-      document.onmousemove = null
-      document.onmouseup = null
-      resize.remove('resizing')
+  onKeydown(event) {
+    keyPress(event)
+  }
+}
 
-      if (type == 'col') {
-        cells.forEach((cell) => cell.css({ width: value + 'px' }))
-        resize.css({ right: '-2px' })
-      } else {
-        parent.css({ height: value + 'px' })
-        resize.css({ bottom: 0 })
-      }
-    }
+function keyPress(event) {
+  switch (event.key) {
+    case 'Enter':
+    case 'ArrowDown':
+      event.preventDefault()
+      console.log('Down')
+      break
+    case 'ArrowRight':
+      console.log('Right')
+      break
+    case 'ArrowLeft':
+      console.log('Left')
+      break
+    case 'ArrowUp':
+      console.log('Up')
+      break
   }
 }

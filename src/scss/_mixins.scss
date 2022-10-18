@@ -18,6 +18,10 @@
    flex-wrap: wrap;
 }
 
+@mixin flex-no-wrap {
+   flex-wrap: nowrap;
+}
+
 //theme color
 @mixin dark-theme-color($dark-mode: true) {
    @if $dark-mode {
@@ -37,12 +41,20 @@
 }
 
 //border
-@mixin set-border ($value: _, $color: #ccc, $width: 1px){
-  @if $value == _ {
-    border: solid $width $color;
-  } @else {
-    border-#{$value}: solid $width $color;
+@mixin set-border ($side: _, $color: #ccc, $width: 1px){
+  
+  @if $color == _ {
+    $color: #ccc;
   }
+
+  @if $side == _ {
+    border: solid  $color;
+    border-width:  $width;
+  } @else {
+    border-#{$side}:$width solid $color;
+  }
+  
+  
 }
 
 //outline
@@ -77,4 +89,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@mixin set-absolute($top: 0, $left: 0, $bottom: 0, $right: 0){
+  position: absolute;
+  top: $top;
+  left: $left;
+  bottom: $bottom;
+  right: $right;
 }
