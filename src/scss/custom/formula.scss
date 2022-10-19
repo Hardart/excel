@@ -1,6 +1,7 @@
 .formula {
   @include display-flex;
   padding: 0;
+  height: 20px;
 
   &__label {
     min-width: 30px;
@@ -12,7 +13,9 @@
   }
 
   &__input {
+    align-self: center;
     flex-grow: 1;
-    padding: 0 10px;
+    padding: 0 5px;
+    margin-left: 10px;
   }
 }

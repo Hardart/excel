@@ -23,19 +23,15 @@ function createBody(rowCount) {
 
 function setupTableHead() {
   const headRow = Array(columnsLength).fill('').map(toChar).map(toColumn)
-  headRow.unshift(rowLabelTemplate())
+  headRow.unshift(rowFirstCell())
   return headRow.join('')
 }
 
 function setupTableBody(rowCount) {
   for (let row = 0; row < rowCount; row++) {
-    const cells = Array(columnsLength)
-      .fill('')
-      .map((el, col) => createCell(col, row))
-      .join('')
+    const cells = Array(columnsLength).fill('').map(toCell(row)).join('')
     rows.push(toRow(row, cells))
   }
-
   return rows.join('')
 }
 
@@ -50,22 +46,21 @@ function toColumn(el, i) {
 function toRow(row, cells) {
   return `
   <div class="row" data-element="resizable">
-    ${rowLabelTemplate(row + 1)}${cells}
+    ${rowFirstCell(row + 1)}${cells}
   </div>
   `
 }
 
-function createCell(column, row) {
-  return `
-    <div class="cell" data-col="${column + 1}" data-row="${row + 1}" data-type="cell" contenteditable></div>`
+function toCell(row) {
+  return function (_, col) {
+    return `
+    <div class="cell" data-col="${col + 1}" data-id="${col + 1}:${row + 1}" data-type="cell" contenteditable></div>`
+  }
 }
 
-function rowLabelTemplate(i = '') {
-  return `
-  <div class="first-cell">
-    ${i == 0 ? '' : i}
-    <div data-resize="row"></div>
-  </div>`
+function rowFirstCell(i = '') {
+  const dataAttr = i !== '' ? ' <div data-resize="row"></div>' : ''
+  return `<div class="first-cell">${i == 0 ? '' : i}${dataAttr}</div>`
 }
 
 export default function createTable(rowsCount = 15) {

@@ -12,10 +12,13 @@ $cellHeight: 24px;
 
   &__head, .row {
     @include display-flex;
+    min-height: 20px;
+    height: $cellHeight;
   }
 
   &__body {
     @include display-flex(column);
+    padding-bottom: 20px;
   }
 
   .column, .cell {
@@ -31,31 +34,32 @@ $cellHeight: 24px;
   }
 
   .column, .first-cell {
+    height: 100%;
     background-color: $muted;
     user-select: none;
   }
 
   .cell {
+    height: 100%;
     background-color: #fff;
     text-align: left;
     user-select: text;
-    height: 100%;
     white-space: nowrap;
 
     &.selected {
       border: none;
-      outline: 3px solid $success;
+      outline: 3px solid $primary;
+      outline-offset: -1px;
       z-index: 2;
     }
   }
 
   .first-cell {
-    @include display-flex;
-    @include flex-align(center);
     position: relative;
     width: 40px;
+    @include display-flex;
+    @include flex-align(center);
     flex: none;
-    
     @include set-border(bottom);
   }
 
@@ -63,10 +67,11 @@ $cellHeight: 24px;
     position: absolute;
     right: 0;
     bottom: 0;
-    z-index: 10;
+    
 
     &:hover, &.resizing {
       background-color: $primary;
+      z-index: 2;
     }
   }
 
