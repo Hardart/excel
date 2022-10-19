@@ -1,11 +1,13 @@
 import { ExcelComponent } from '@core/ExcelComponent'
 import createTable from '@/components/table/table.settings'
 import { resizeHandler } from './table.resize'
-import { canIStartResize } from './table.helpers'
+import { canIStartResize, keyPress, isCell } from './table.helpers'
+import { Selection } from './Selection'
+import DOM from '@core/DomCreator'
 
 const options = {
   title: 'Table',
-  listeners: ['mousedown', 'input', 'keydown'],
+  listeners: ['mousedown', 'input', 'keydown', 'click'],
   section: true,
   sectionClasses: ['section', 'section-collapse'],
 }
@@ -20,13 +22,23 @@ export class Table extends ExcelComponent {
     return options.sectionClasses
   }
 
+  beforeInit() {
+    this.selection = new Selection()
+  }
+
+  init() {
+    super.init()
+    const firstInitCell = this.rootComponent.find('[data-id="1:1"]')
+    this.selection.select(firstInitCell)
+  }
+
   toHTML() {
     return createTable(40)
   }
 
   // events
   onMousedown(event) {
-    if (!canIStartResize) return
+    if (!canIStartResize(event)) return
     resizeHandler(this.rootComponent, event)
   }
 
@@ -38,23 +50,18 @@ export class Table extends ExcelComponent {
   onKeydown(event) {
     keyPress(event)
   }
+
+  onClick(event) {
+    if (!isCell(event)) return
+    const cell = DOM.init(event.target)
+    if (!event.shiftKey) return this.selection.select(cell)
+    const selectedCell = cell.idData(true)
+    const currentCell = this.selection.current.idData(true)
+    range(currentCell.col, selectedCell.col)
+  }
 }
 
-function keyPress(event) {
-  switch (event.key) {
-    case 'Enter':
-    case 'ArrowDown':
-      event.preventDefault()
-      console.log('Down')
-      break
-    case 'ArrowRight':
-      console.log('Right')
-      break
-    case 'ArrowLeft':
-      console.log('Left')
-      break
-    case 'ArrowUp':
-      console.log('Up')
-      break
-  }
+function range(startCell, endCell) {
+  const count = new Array(endCell - startCell + 1).fill('').map((_, i) => i + startCell)
+  console.log(count)
 }

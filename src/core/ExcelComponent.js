@@ -4,6 +4,7 @@ export class ExcelComponent extends DOMListener {
   constructor(rootComponent, options = {}) {
     super(rootComponent, options.listeners)
     this.title = options.title || ''
+    this.beforeInit()
   }
 
   static get rootClasses() {
@@ -14,9 +15,7 @@ export class ExcelComponent extends DOMListener {
     return `<h1>${this.constructor.name}</h1>`
   }
 
-  prepare() {
-    console.log('prepare')
-  }
+  beforeInit() {}
 
   init() {
     this.initListeners()

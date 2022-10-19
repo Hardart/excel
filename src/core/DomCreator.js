@@ -55,19 +55,19 @@ export default class DOM {
     return DOM.init(this.$node.closest(selector))
   }
 
-  add(classes = null) {
+  addClass(classes = null) {
     if (!classes) return
     if (isString(classes)) classes = classes.split(',').map((el) => el.trim())
     this.$node.classList.add(...classes)
   }
 
-  has(prop = null) {
+  hasClass(prop = null) {
     if (!prop) return
     if (!isString(prop)) return
     return this.$node.classList.contains(prop)
   }
 
-  remove(classes = null) {
+  removeClass(classes = null) {
     if (!classes) return
     if (typeof classes === 'string') classes = [classes]
     this.$node.classList.remove(...classes)
@@ -89,8 +89,14 @@ export default class DOM {
 
   removeCss(styles = {}) {
     Object.keys(styles).forEach((key) => {
-      this.$node.style.removeProperty(transformStyle(key))
+      this.$node.style.removeProperty(transformStyleString(key))
     })
+  }
+
+  idData(isParce) {
+    if (!isParce) return this.$node.dataset.id
+    const [col, row] = this.idData().split(':')
+    return { col: Number(col), row: Number(row) }
   }
 
   get attrsData() {
@@ -98,9 +104,9 @@ export default class DOM {
   }
 }
 
-function transformStyle(str) {
+function transformStyleString(str) {
   return str
-      .split('')
-      .map((l) => (l.match(/[A-Z]/g) ? `-${l.toLowerCase()}` : l))
-      .join('')
+    .split('')
+    .map((l) => (l.match(/[A-Z]/g) ? `-${l.toLowerCase()}` : l))
+    .join('')
 }
