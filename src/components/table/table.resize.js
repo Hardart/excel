@@ -1,4 +1,4 @@
-import DOM from '@core/DomCreator'
+import DOM from '@core/Dom'
 
 export function resizeHandler($root, event) {
   const resize = DOM.init(event.target)
@@ -9,7 +9,7 @@ export function resizeHandler($root, event) {
   const cells = $root.findAll(`[data-col="${parent.attrsData.col}"]`)
   let value
 
-  document.onmousemove = (e) => {
+  document.onmousemove = e => {
     resize.addClass('resizing')
     const deltaX = coords.width + (e.pageX - coords.right) + 2
     const deltaY = coords.height + (e.pageY - coords.bottom) + 2
@@ -24,7 +24,7 @@ export function resizeHandler($root, event) {
     resize.removeClass('resizing')
 
     if (type == 'col') {
-      cells.forEach((cell) => cell.css({ width: value + 'px' }))
+      cells.forEach(cell => cell.css({ width: value + 'px' }))
       resize.css({ right: '-2px' })
     } else {
       parent.css({ height: value + 'px' })

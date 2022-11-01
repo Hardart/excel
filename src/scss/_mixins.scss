@@ -29,6 +29,14 @@
    }
 }
 
+
+@mixin light-theme-color($light-mode: true) {
+  @if $light-mode {
+    color: lighten($dark, 100%);
+    background-color: darken($light, 80%);
+  }
+}
+
 //colors
 @mixin set-colors ($color, $percentage){
    @if lightness($color) > 45% {

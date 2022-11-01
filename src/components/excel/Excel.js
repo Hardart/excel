@@ -1,5 +1,5 @@
-import DOM from '@core/DomCreator'
-
+import DOM from '@core/Dom'
+import { setIconsSize } from '@core/helpers'
 export default class Excel {
   constructor(selector, options) {
     this.$app = DOM.init(selector)
@@ -13,7 +13,7 @@ export default class Excel {
 
   componentsCompose() {
     const $rootElement = DOM.create('div', this.baseClass)
-    this.components = this.components.map((Component) => {
+    this.components = this.components.map(Component => {
       const $section = DOM.create('section', Component.sectionClasses)
       const $element = DOM.create('div', Component.rootClasses)
       const component = new Component($element)
@@ -30,6 +30,7 @@ export default class Excel {
 
   render() {
     this.$app.append(this.componentsCompose())
-    this.components.forEach((component) => component.init())
+    this.components.forEach(component => component.init())
+    setIconsSize()
   }
 }

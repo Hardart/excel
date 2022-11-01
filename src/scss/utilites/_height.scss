@@ -1,0 +1,6 @@
+@each $value,
+$size in $height-values {
+  .h-#{$value} {
+    height: $size;
+  }
+}

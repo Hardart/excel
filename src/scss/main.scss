@@ -8,7 +8,10 @@
 @import 'utilites';
 @import 'utils';
 
-
 #app {
-   position: relative;
+  position: relative;
+}
+
+.dark > * {
+  @include light-theme-color;
 }

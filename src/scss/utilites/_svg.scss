@@ -1,5 +1,14 @@
 svg {
-   transition-property: background-color, color;
-   transition-duration: $animation-duration;
-   transition-timing-function: ease;
+  fill: currentColor;
+  transition-property: background-color, color;
+  transition-duration: $animation-duration;
+  transition-timing-function: ease;
+
+  [fill *='#'] {
+    fill: currentColor;
+  }
+
+  [stroke *='#'] {
+    stroke: currentColor;
+  }
 }

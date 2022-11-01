@@ -3,13 +3,14 @@ import createTable from '@/components/table/table.settings'
 import { resizeHandler } from './table.resize'
 import { canIStartResize, keyPress, isCell } from './table.helpers'
 import { Selection } from './Selection'
-import DOM from '@core/DomCreator'
+import DOM from '@core/Dom'
 
 const options = {
   title: 'Table',
   listeners: ['mousedown', 'input', 'keydown', 'click'],
-  section: true,
-  sectionClasses: ['section', 'section-collapse'],
+  section: {
+    class: ['section', 'section-collapse', 'h-50vh']
+  }
 }
 
 export class Table extends ExcelComponent {
@@ -19,7 +20,7 @@ export class Table extends ExcelComponent {
 
   static get sectionClasses() {
     if (!options.section) return null
-    return options.sectionClasses
+    return options.section.class
   }
 
   beforeInit() {

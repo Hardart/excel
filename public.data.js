@@ -7,11 +7,6 @@ function toConsole(err) {
   return console.log(err)
 }
 
-function isDirectory(stat) {
-  console.log(stat)
-  return stat.isDirectory()
-}
-
 /**
  * @param {string} title
  * @param {number} id
@@ -24,7 +19,7 @@ function init(title) {
 
 try {
   const files = fs.readdirSync(PUBLIC_PATH)
-  files.forEach((file) => {
+  files.forEach(file => {
     if (file == '.DS_Store') return
     const part = {
       title: '',
@@ -36,7 +31,7 @@ try {
       set imgPath(imgName) {
         const path = `${this.title}/${imgName}`
         this.images.push(path)
-      },
+      }
     }
     const obj = init.call(part, file)
     const path = obj.dir
@@ -52,7 +47,7 @@ try {
     data[file] = obj
   })
   const json = JSON.stringify(data)
-  fs.writeFile('./src/data.json', json, 'utf8', (err) => {
+  fs.writeFile('./src/images.json', json, 'utf8', err => {
     if (err) return toConsole
   })
 } catch (error) {
@@ -61,7 +56,7 @@ try {
 
 function imagesSet(path, obj) {
   const images = fs.readdirSync(path)
-  images.forEach((image) => {
+  images.forEach(image => {
     obj.imgPath = image
   })
 }

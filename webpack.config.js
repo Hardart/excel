@@ -6,47 +6,47 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 
 const devMode = process.env.NODE_ENV !== 'production'
 
-const filename = (ext) => (devMode ? `[name].[contenthash].${ext}` : `[name].${ext}`)
-const entry = (ext) => (devMode ? `[name].[contenthash].${ext}` : `[name].${ext}`)
-const folder = (ext) => (ext == 'html' ? filename(ext) : `assets/${ext}/${filename(ext)}`)
+const filename = ext => (devMode ? `[name].[contenthash].${ext}` : `[name].${ext}`)
+const entry = ext => (devMode ? `[name].[contenthash].${ext}` : `[name].${ext}`)
+const folder = ext => (ext == 'html' ? filename(ext) : `assets/${ext}/${filename(ext)}`)
 
 const plugins = [
   new CleanWebpackPlugin(),
   new HTMLWebpackPlugin({
-    template: 'index.html',
+    template: 'index.html'
   }),
   new MiniCssExtractPlugin({
-    filename: devMode ? `[name].css` : folder('css'),
+    filename: devMode ? `[name].css` : folder('css')
   }),
-  new ESLintPlugin(),
+  new ESLintPlugin()
 ]
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
   entry: {
-    app: './app',
+    app: './app'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: entry('js'),
-    assetModuleFilename: 'assets/img/[hash][ext][query]',
+    assetModuleFilename: 'assets/img/[hash][ext][query]'
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@core': path.resolve(__dirname, 'src/core'),
-      '@scss': path.resolve(__dirname, 'src/scss'),
+      '@': path.resolve(__dirname, 'src/'),
+      '@core': path.resolve(__dirname, 'src/core/'),
+      '@scss': path.resolve(__dirname, 'src/scss')
     },
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.js']
   },
   devServer: {
     port: 5051,
     watchFiles: ['src/*'],
     client: {
-      logging: 'none',
+      logging: 'none'
     },
-    hot: true,
+    hot: true
   },
 
   plugins,
@@ -56,18 +56,18 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
+            loader: MiniCssExtractPlugin.loader
           },
           {
-            loader: 'css-loader',
+            loader: 'css-loader'
           },
           {
-            loader: 'postcss-loader',
+            loader: 'postcss-loader'
           },
           {
-            loader: 'sass-loader',
-          },
-        ],
+            loader: 'sass-loader'
+          }
+        ]
       },
       {
         test: /\.m?js$/,
@@ -75,19 +75,19 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
+            presets: ['@babel/preset-env']
+          }
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
-        type: 'asset/resource',
+        type: 'asset/resource'
       },
       {
         test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
-        type: 'asset',
-      },
-    ],
+        type: 'asset'
+      }
+    ]
   },
-  devtool: 'source-map',
+  devtool: 'source-map'
 }

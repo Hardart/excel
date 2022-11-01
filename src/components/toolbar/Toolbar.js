@@ -3,8 +3,9 @@ import { ExcelComponent } from '@core/ExcelComponent'
 const options = {
   title: 'Toolbar',
   listeners: ['click'],
-  section: true,
-  sectionClasses: ['section', 'section-collapse', 'py-5', 'hr-y'],
+  section: {
+    class: ['section', 'section-collapse', 'py-5', 'hr-y']
+  }
 }
 
 export class Toolbar extends ExcelComponent {
@@ -14,7 +15,7 @@ export class Toolbar extends ExcelComponent {
 
   static get sectionClasses() {
     if (!options.section) return null
-    return options.sectionClasses
+    return options.section.class
   }
 
   toHTML() {

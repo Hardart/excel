@@ -1,118 +1,125 @@
-.h-100 {
-   height: max-content;
-}
-
-.text-center {
-   text-align: center !important;
-
-   & > * {
-      margin: auto;
-   }
-}
-
-.remove-p {
-   padding: 0 !important;
-}
-
 // margins and paddings
 @each $value, $size in $spacing {
-   .p-#{$value} {
-      padding: $size;
-   }
-   .px-#{$value} {
-      padding: 0 $size;
-   }
-   .py-#{$value} {
-      padding: $size 0;
-   }
-   .pt-#{$value} {
-      padding-top: $size;
-   }
-   .pb-#{$value} {
-      padding-bottom: $size;
-   }
-   .m-#{$value} {
-      margin: $size;
-   }
-   .mx-#{$value} {
-      margin: 0 $size;
-   }
-   .my-#{$value} {
-      margin: $size 0;
-   }
-   .ml-#{$value} {
-      margin-left: $size;
-   }
-   .mr-#{$value} {
-      margin-right: $size;
-   }
-   .mb-#{$value} {
-      margin-bottom: $size;
-   }
-   .mt-#{$value} {
-      margin-top: $size;
-   }
+  .p-#{$value} {
+    padding: $size;
+  }
 
-   // REMOVE FROM HERE!!!!
-   .bdr-#{$value} {
-      border-radius: $size;
-   }
-   
+  .px-#{$value} {
+    padding-left: $size;
+    padding-right: $size;
+  }
+
+  .py-#{$value} {
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+
+  .pt-#{$value} {
+    padding-top: $size;
+  }
+
+  .pb-#{$value} {
+    padding-bottom: $size;
+  }
+
+  .m-#{$value} {
+    margin: $size;
+  }
+
+  .mx-#{$value} {
+    margin: 0 $size;
+  }
+
+  .my-#{$value} {
+    margin: $size 0;
+  }
+
+  .ml-#{$value} {
+    margin-left: $size;
+  }
+
+  .mr-#{$value} {
+    margin-right: $size;
+  }
+
+  .mb-#{$value} {
+    margin-bottom: $size;
+  }
+
+  .mt-#{$value} {
+    margin-top: $size;
+  }
+
+  // REMOVE FROM HERE!!!!
+  .bdr-#{$value} {
+    border-radius: $size;
+  }
 }
 
 //gaps
 @each $value, $size in $spacing {
   .g-#{$value} {
-     gap: $size;
-  }  
+    gap: $size;
+  }
 }
 
 // media screen display and visibility
+.hidden {
+  display: none;
+}
+
 @each $letter, $breakpoint in $breakpoints {
-   @media (max-width: $breakpoint) {
-      .hidden\@#{$letter} {
-         visibility: hidden;
-      }
-   }
+  @media (max-width: $breakpoint) {
+    .hidden\@#{$letter} {
+      display: none !important;
+    }
+  }
 
-   @media (min-width: $breakpoint) {
-      .visible\@#{$letter} {
-         display: none;
-      }
-   }
+  @media (min-width: $breakpoint) {
+    .visible\@#{$letter} {
+      display: none !important;
+    }
+  }
 }
 
-// background colors
+// bg and text colors
 @each $color in map-keys($theme-colors) {
-   .bg-#{$color} {
-      @include set-colors(map-get($theme-colors, $color), 0%);
-   }
-}
-
-// height values
-@each $value, $size in $height-values {
-   .h-#{$value} {
-      height: $size;
-   }
+  .text-#{$color} {
+    color: map-get($theme-colors, $color);
+  }
+  .bg-#{$color} {
+    @include set-colors(map-get($theme-colors, $color), 0%);
+  }
+  .bg-overlay {
+    background-color: rgba($color: $dark, $alpha: 0.7);
+  }
 }
 
 .overflow-h {
-   overflow: hidden;
+  overflow: hidden;
 }
 
 .overflow-y {
-   overflow-y: scroll !important;
+  overflow-y: scroll !important;
 }
-
-
 
 .hr-y {
   border-top: solid 1px #ccc;
   border-bottom: solid 1px #ccc;
 }
+
 .hr-t {
   border-top: solid 1px #ccc;
 }
+
 .hr-b {
   border-bottom: solid 1px #ccc;
+}
+
+.bdr-circle {
+  border-radius: 50%;
+}
+
+img {
+  vertical-align: middle;
 }

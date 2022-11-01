@@ -3,14 +3,14 @@ $cellHeight: 24px;
 
 .table {
   @include set-absolute();
-  min-height: 500px;
+  min-height: 50vh;
   padding: 0 !important;
   overflow-x: auto;
   overflow-y: scroll;
   @include set-border(top);
 
-
-  &__head, .row {
+  &__head,
+  .row {
     @include display-flex;
     min-height: 20px;
     height: $cellHeight;
@@ -21,7 +21,8 @@ $cellHeight: 24px;
     padding-bottom: 20px;
   }
 
-  .column, .cell {
+  .column,
+  .cell {
     position: relative;
     width: 100px;
     min-width: 40px;
@@ -33,7 +34,8 @@ $cellHeight: 24px;
     @include set-border(bottom);
   }
 
-  .column, .first-cell {
+  .column,
+  .first-cell {
     height: 100%;
     background-color: $muted;
     user-select: none;
@@ -67,20 +69,20 @@ $cellHeight: 24px;
     position: absolute;
     right: 0;
     bottom: 0;
-    
 
-    &:hover, &.resizing {
+    &:hover,
+    &.resizing {
       background-color: $primary;
       z-index: 2;
     }
   }
 
-  [data-resize=col] {
+  [data-resize='col'] {
     top: 0;
     width: $dragableElSize;
     cursor: e-resize;
   }
-  [data-resize=row] {
+  [data-resize='row'] {
     left: 0;
     height: $dragableElSize;
     cursor: s-resize;

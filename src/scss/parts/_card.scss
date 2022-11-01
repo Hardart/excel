@@ -1,70 +1,75 @@
 .card {
-   position: relative;
-   @include display-flex(column);
-   cursor: default;
-   overflow: hidden;
+  position: relative;
+  @include display-flex(column);
+  width: 100%;
+  border-radius: $global-border-radius;
+  cursor: default;
 
+  &-media {
+    img,
+    video {
+      width: 100%;
+    }
+  }
 
-   &-media {
-      img, video {
-         width: 100%;
+  &-body,
+  &-header,
+  &-footer {
+    padding: 15px 20px;
+
+    @each $letter, $value in $gaps {
+      @media (min-width: map-get($breakpoints, $letter)) {
+        padding: $value;
       }
-   }
-   
-   &-body {
-      padding: 10px 12px;
-      @each $letter, $value in $gaps {
-         @media (min-width: map-get($breakpoints, $letter)) {
-            @if $value < 35px {
-               padding:  $value;
-            }
-         }
+    }
+  }
+
+  &-group {
+    @include display-flex;
+    align-items: center;
+  }
+
+  &__title {
+    display: inline;
+    // max-width: 80%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    overflow-wrap: break-word;
+  }
+
+  &__text {
+    font-size: 0.8rem;
+    overflow-wrap: break-word;
+    margin-top: 5px;
+  }
+
+  &__badge {
+    position: absolute;
+    max-width: 30%;
+    top: 10px;
+    right: 10px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: $small;
+    text-transform: uppercase;
+
+    @media (min-width: $breakpoint-medium) {
+      top: 15px;
+      right: 15px;
+      font-size: $standart;
+      padding: 3px 7px;
+    }
+
+    @each $color in map-keys($theme-colors) {
+      &.badge-#{$color} {
+        @include set-colors(map-get($theme-colors, $color), 0%);
       }
-   }
+    }
+  }
 
-   &__title {
-      display: inline;
-      // max-width: 80%;
-      font-size: 1.2rem;
-      font-weight: 600;
-      overflow-wrap: break-word;
-      
-      
-   }
-
-   &__text {
-      font-size: 0.87rem;
-      overflow-wrap: break-word;
-      margin-top: 20px;
-   }
-
-   &__badge {
-      position: absolute;
-      max-width: 30%;
-      top: 10px;
-      right: 10px;
-      padding: 3px 10px;
-      border-radius: 4px;
-      font-size: $small;
-      text-transform: uppercase;
-
-      @media (min-width: $breakpoint-medium) {
-         top: 15px;
-         right: 15px;
-         font-size: $standart;
-         padding: 3px 7px;
-      }
-
-      @each $color in map-keys($theme-colors) {
-         &.badge-#{$color} {
-            @include set-colors(map-get($theme-colors, $color), 0%);
-         }
-      }
-   }
-
-   @each $color in map-keys($theme-colors) {
-      &-#{$color} {
-         @include set-colors(map-get($theme-colors, $color), 0%);
-      }
-   }
+  @each $color in map-keys($theme-colors) {
+    &-#{$color} {
+      @include set-colors(map-get($theme-colors, $color), 0%);
+    }
+  }
 }

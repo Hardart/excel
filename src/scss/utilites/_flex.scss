@@ -1,0 +1,46 @@
+.flex {
+  display: flex;
+
+  &-col {
+    flex-direction: column;
+  }
+
+  &-center {
+    justify-content: center;
+  }
+  
+  &-between {
+    justify-content: space-between;
+  }
+
+  &-right {
+    justify-content: flex-end;
+  }
+
+  &-left {
+    justify-content: flex-start;
+  }
+
+  &-middle {
+    align-items: center;
+  }
+
+  &-top {
+    align-items: flex-start;
+  }
+
+  &-bottom {
+    align-items: flex-end;
+  }
+
+  &-1 {
+    flex: 1;
+  }
+
+  @each $value, $size in $spacing {
+    &-gap-#{$value} {
+      gap: $size;
+    }
+  }
+
+}

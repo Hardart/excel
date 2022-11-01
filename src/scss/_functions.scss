@@ -7,3 +7,6 @@
 }
 
 
+@function changeColor($color, $percentage) {
+  $primary: $color;
+}
