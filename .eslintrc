@@ -20,5 +20,6 @@
     "comma-dangle": "off",
     "valid-jsdoc": "off"
   },
+  "ignorePatterns": ["/dist"],
   "extends": ["eslint:recommended", "google"]
 }

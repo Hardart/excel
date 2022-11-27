@@ -68,6 +68,10 @@
   display: none;
 }
 
+.hide {
+  opacity: 0;
+}
+
 @each $letter, $breakpoint in $breakpoints {
   @media (max-width: $breakpoint) {
     .hidden\@#{$letter} {
@@ -120,6 +124,8 @@
   border-radius: 50%;
 }
 
-img {
+img,
+canvas {
+  width: 100%;
   vertical-align: middle;
 }

@@ -1,0 +1,31 @@
+.alert-container {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  font-size: 14px;
+  transform: translateX(-50%);
+}
+
+.alert {
+  position: relative;
+  display: block;
+  padding: 1em;
+  font-size: 1em;
+  font-weight: 500;
+  top: 0;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  transition: all 300ms ease;
+
+  &.open {
+    top: -50px;
+    opacity: 0;
+  }
+
+  @each $color in map-keys($theme-colors) {
+    &#{&}-#{$color} {
+      @include set-colors(map-get($theme-colors, $color), 0%);
+    }
+  }
+}

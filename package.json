@@ -7,7 +7,9 @@
     "build": "cross-env NODE_ENV=production webpack --mode production ",
     "dev": "webpack --mode development",
     "start": "webpack-dev-server --mode development",
-    "img": "node public.data.js"
+    "img": "node public.data.js",
+    "icons": "node icons.bundle.js",
+    "babel": "babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
   },
   "homepage": "https://github.com/Hardart/excel#readme",
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-env": "^7.19.3",
@@ -53,5 +56,5 @@
   "dependencies": {
     "uikit": "^3.15.11"
   },
-  "types": "app.d.ts"
+  "types": "index.d.ts"
 }

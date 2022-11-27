@@ -36,7 +36,8 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src/'),
       '@core': path.resolve(__dirname, 'src/core/'),
-      '@scss': path.resolve(__dirname, 'src/scss')
+      '@scss': path.resolve(__dirname, 'src/scss'),
+      '@ui': path.resolve(__dirname, 'src/components/ui')
     },
     extensions: ['.js']
   },

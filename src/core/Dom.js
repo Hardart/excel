@@ -1,26 +1,14 @@
-import { isArray, isString } from './helpers'
+import { isArray, isString } from './helpers.js'
 
 export default class DOM {
-  /**
-   *
-   * @param {string | Node} selector
-   */
   constructor(selector) {
     this.$node = typeof selector === 'string' ? document.querySelector(selector) : selector
   }
-  /**
-   *
-   * @param {string | Node} selector
-   */
+
   static init(selector) {
     return new DOM(selector)
   }
-  /**
-   *
-   * @param {keyof HTMLElementTagNameMap} tagName
-   * @param  {...string} classes
-   * @returns
-   */
+
   static create = (tagName = 'div', ...classes) => {
     const el = document.createElement(tagName)
     if (classes[0]) {
@@ -30,9 +18,34 @@ export default class DOM {
     return this.init(el)
   }
 
+  static get body() {
+    return this.init(document.body)
+  }
+
+  static stopScroll() {
+    this.body.addClass('overflow-h')
+  }
+
+  scroll() {
+    this.$node.classList.remove('overflow-h')
+  }
+
+  stopScroll() {
+    this.$node.classList.add('overflow-h')
+  }
+
+  static scroll() {
+    this.body.clearClass()
+  }
+
   html(htmlString) {
     if (typeof htmlString !== 'string') return this.$node.outerHTML.trim()
     this.$node.innerHTML = htmlString
+    return this
+  }
+
+  delete() {
+    this.$node.remove()
     return this
   }
 
@@ -41,12 +54,13 @@ export default class DOM {
     return this
   }
 
-  append(element) {
+  append(element, where = 'beforeend') {
+    if (!element) return
     if (element instanceof DOM) element = element.$node
-    if (Element.prototype.append) {
-      this.$node.append(element)
+    if (typeof element == 'string') {
+      this.$node.insertAdjacentHTML(where, element)
     } else {
-      this.$node.appendChild(element)
+      this.$node.insertAdjacentElement(where, element)
     }
     return this
   }
@@ -69,52 +83,59 @@ export default class DOM {
     return DOM.init(this.$node.closest(selector))
   }
 
-  addClass(classes = null) {
-    if (!classes) return
-    if (isString(classes)) classes = classes.split(',').map(el => el.trim())
+  addClass(classes) {
+    if (isString(classes)) classes = classes.split(',').map((/** @type {string} */ el) => el.trim())
     this.$node.classList.add(...classes)
   }
 
-  hasClass(prop = null) {
-    if (!prop) return
+  toggle(className) {
+    this.$node.classList.toggle(className)
+  }
+
+  hasClass(prop) {
     if (!isString(prop)) return
     return this.$node.classList.contains(prop)
   }
 
-  removeClass(classes = null) {
-    if (!classes) return
+  removeClass(classes) {
     if (typeof classes === 'string') classes = [classes]
     this.$node.classList.remove(...classes)
     return this
   }
 
   find(selector) {
-    return DOM.init(this.$node.querySelector(selector))
+    const $el = this.$node.querySelector(selector)
+    if (!$el) return null
+    return DOM.init($el)
   }
 
   findAll(selector) {
     return Array.from(this.$node.querySelectorAll(selector)).map(el => DOM.init(el))
   }
 
-  findPrev() {
-    return DOM.init(this.$node.previousSibling)
-  }
-  /**
-   *
-   * @param {CSSStyleDeclaration} styles
-   * @returns {DOM}
-   */
   css(styles = {}) {
     Object.keys(styles).forEach(key => {
-      this.$node.style[key] = styles[key]
+      this.$node.style.setProperty(key, styles[key])
     })
     return this
   }
 
   removeCss(styles = {}) {
-    Object.keys(styles).forEach(key => {
-      this.$node.style.removeProperty(transformStyleString(key))
-    })
+    if (typeof styles == 'string') {
+      this.$node.style.removeProperty(styles)
+    } else {
+      Object.keys(styles).forEach(key => {
+        this.$node.style.removeProperty(transformStyleString(key))
+      })
+    }
+  }
+
+  clearClass() {
+    this.$node.removeAttribute('class')
+  }
+
+  clearCss() {
+    this.$node.removeAttribute('style')
   }
 
   idData(isParce) {
@@ -128,13 +149,41 @@ export default class DOM {
   }
 
   getAttr(attributeName) {
+    if (!this.$node) return
     return this.$node.getAttribute(attributeName)
+  }
+
+  setAttr(attributeName, attributeValue) {
+    this.$node.setAttribute(attributeName, attributeValue)
+    return this
+  }
+
+  removeAttr(attributeName) {
+    this.$node.removeAttribute(attributeName)
+    return this
+  }
+
+  focus() {
+    this.$node.focus()
+    return this
+  }
+
+  blur() {
+    this.$node.blur()
+    return this
+  }
+
+  value(value) {
+    if (!('value' in this.$node)) return
+    if (!value && value !== '') return this.$node.value.trim()
+    this.$node.value = value
+    return this
   }
 }
 
 function transformStyleString(str) {
   return str
     .split('')
-    .map(l => (l.match(/[A-Z]/g) ? `-${l.toLowerCase()}` : l))
+    .map((/** @type {string} */ l) => (l.match(/[A-Z]/g) ? `-${l.toLowerCase()}` : l))
     .join('')
 }

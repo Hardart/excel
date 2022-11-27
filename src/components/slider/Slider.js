@@ -42,9 +42,9 @@ export class Slider extends ExcelComponent {
   }
 
   async nextSlide(event) {
-    const span = event.target.closest('[data-type="slider-nav"]')
-    if (span) {
-      const btn = DOM.init(span)
+    const arrow = event.target.closest('[data-type="slider-nav"]')
+    if (arrow) {
+      const btn = DOM.init(arrow)
       const { slides, container } = getSliderElements(btn)
       const { width } = slides[0].getCoords()
       const transition = {
