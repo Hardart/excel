@@ -154,7 +154,7 @@ export default class DOM {
   }
 
   setAttr(attributeName, attributeValue) {
-    this.$node.setAttribute(attributeName, attributeValue)
+    this.$node.setAttribute(attributeName, attributeValue ? attributeValue : '')
     return this
   }
 
@@ -178,6 +178,11 @@ export default class DOM {
     if (!value && value !== '') return this.$node.value.trim()
     this.$node.value = value
     return this
+  }
+
+  get isEmpty() {
+    if (this.$node.children[0]) return false
+    return true
   }
 }
 

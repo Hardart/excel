@@ -18,7 +18,9 @@
     "indent": "off",
     "space-before-function-paren": "off",
     "comma-dangle": "off",
-    "valid-jsdoc": "off"
+    "valid-jsdoc": "off",
+    "linebreak-style": "off",
+    "quote-props": "off"
   },
   "ignorePatterns": ["/dist"],
   "extends": ["eslint:recommended", "google"]

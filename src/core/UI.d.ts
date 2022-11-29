@@ -1,15 +1,21 @@
 namespace UI {
-  type AlertStatus = 'danger' | 'success' | 'warinig'
+  type AlertStatus = 'danger' | 'success' | 'warning'
   export interface AlertOptions {
     text: string
     duration?: number | undefined
-    autoClose?: booleans
+    autoClose?: boolean
     status?: AlertStatus
+    closable: boolean
   }
-  interface UIkitAlertElement {
+
+  interface AlertElement {
     console(): void
   }
-  type Alert = (options?: AlertOptions | string[]) => UIkitAlertElement
+
+  interface Alert {
+    (options: AlertOptions): AlertElement
+    (message: string, optionsOrStatus?: AlertOptions | AlertStatus): AlertElement
+  }
 
   const alert: Alert
 }

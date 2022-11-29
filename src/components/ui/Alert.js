@@ -1,11 +1,13 @@
 import DOM from '@core/Dom'
 import { delayTimeout } from '@core/helpers'
+import icons from '@core/icons'
 
 const DEFULTS = {
   text: 'Alert',
   status: 'danger',
-  duration: 5000,
-  autoClose: true
+  duration: 3000,
+  autoClose: true,
+  closable: true
 }
 
 export default class Alert {
@@ -20,13 +22,12 @@ export default class Alert {
   }
 
   createAlert() {
-    return DOM.create('div', 'alert')
+    return DOM.create('div', 'alert', `alert-${this.status}`, 'open')
   }
 
-  initAlert() {
+  prepareAlert() {
     this.alert = this.createAlert()
-    this.alert.addClass(`alert-${this.status}`)
-    this.alert.html(this.text)
+    this.alert.append(DOM.create('div', 'alert-text').append(this.text))
   }
 
   checkContainer() {
@@ -36,15 +37,28 @@ export default class Alert {
     DOM.body.append(this.container)
   }
 
-  showAlert() {
-    this.initAlert()
+  async showAlert() {
+    this.prepareAlert()
     this.container.append(this.alert)
+    if (this.closable) {
+      const close = DOM.create().append(icons.close).setAttr('close')
+      this.alert.append(close)
+      this.onClose()
+    }
+    await delayTimeout()
+    this.alert.removeClass('open')
     if (this.autoClose) this.close()
   }
 
   async close(ms = this.duration) {
     await delayTimeout(ms)
-    this.alert.delete()
+    closeAlert.call(this)
+  }
+
+  onClose() {
+    const btn = this.alert.find('[close]')
+    const close = closeAlert.bind(this)
+    btn.on('click', close)
   }
 }
 
@@ -67,4 +81,13 @@ function initOptions(options) {
     const key = keys[i]
     options[key] = option
   }
+}
+
+function closeAlert() {
+  const height = this.alert.getCoords().height
+  this.alert.css({ 'margin-top': -height + 'px', opacity: '0' })
+  this.alert.on('transitionend', () => {
+    this.alert.delete()
+    if (this.container.isEmpty) this.container.delete()
+  })
 }

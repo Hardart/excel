@@ -129,3 +129,10 @@ canvas {
   width: 100%;
   vertical-align: middle;
 }
+
+[close] {
+  position: absolute;
+  display: flex;
+  top: 0.5em;
+  right: 0.7em;
+}

@@ -30,11 +30,12 @@ export default class DOM {
   clearClass(): void
   clearCss(): void
   idData(isParce: boolean): any
-  get attrsData(): DOMStringMap
   getAttr(attributeName: string): string
   setAttr(attributeName: string, attributeValue: string): DOM
   removeAttr(attributeName: string): DOM
   focus(): DOM
   blur(): DOM
   value(value?: string | null): any
+  get attrsData(): DOMStringMap
+  get isEmpty(): boolean
 }

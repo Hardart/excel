@@ -2,6 +2,7 @@
 
 import DOM from '@core/Dom'
 import { ExcelComponent } from '@core/ExcelComponent'
+// import { delayTimeout } from '@core/helpers'
 import UI from '@core/ui'
 
 import { renderCards } from './feed.settings'
@@ -25,8 +26,9 @@ export class Feed extends ExcelComponent {
   }
 
   toHTML() {
-    UI.alert('Ошибка', 'warning')
-    setTimeout(() => UI.alert({ text: 'Все в порядке', status: 'success', duration: 1000 }), 6000)
+    UI.alert('Непредвиденная ошибка, попробуйте перезагрузить страницу', 'warning')
+    UI.alert('ok', 'danger')
+
     const lottie = `
     <div class="flex flex-center hidden">
       <lottie-player autoplay loop mode="normal" src="https://assets4.lottiefiles.com/packages/lf20_l5qvxwtf.json" style="width: 50%"></lottie-player>
