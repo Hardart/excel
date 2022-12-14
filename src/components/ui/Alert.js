@@ -1,39 +1,49 @@
 import DOM from '@core/Dom'
 import { delayTimeout } from '@core/helpers'
 import icons from '@core/icons'
+import { UIListener } from '@core/UiListener'
+import { initArgs } from './components.settings'
 
 const DEFULTS = {
-  text: 'Alert',
+  text: 'Alert text',
   status: 'danger',
   duration: 3000,
   autoClose: true,
-  closable: true
+  closable: true,
+  selector: '[alert-container]',
+  listeners: ['click', 'transitionend'],
+  title: 'Alert'
 }
 
-export default class Alert {
+export default class Alert extends UIListener {
   constructor(...args) {
-    initArgs.call(this, args)
-    this.checkContainer()
+    super()
+    initArgs.call(this, DEFULTS, args)
+    this.createContainer()
+    this.prepare()
+    this.init()
     this.showAlert()
   }
 
-  console() {
-    console.log(this.duration)
+  prepare() {
+    this.$root = DEFULTS.selector ? DOM.init(DEFULTS.selector) : DOM.body
   }
 
-  createAlert() {
-    return DOM.create('div', 'alert', `alert-${this.status}`, 'open')
+  init() {
+    super.init()
   }
+
+  console() {}
 
   prepareAlert() {
-    this.alert = this.createAlert()
+    this.alert = DOM.create('div', 'alert', `alert-${this.status}`, 'open')
     this.alert.append(DOM.create('div', 'alert-text').append(this.text))
   }
 
-  checkContainer() {
+  createContainer() {
     this.container = DOM.body.find('.alert-container')
     if (this.container) return
-    this.container = DOM.create('div', 'alert-container')
+    this.container = DOM.create('div', 'alert-container').setAttr('alert-container')
     DOM.body.append(this.container)
   }
 
@@ -43,7 +53,6 @@ export default class Alert {
     if (this.closable) {
       const close = DOM.create().append(icons.close).setAttr('close')
       this.alert.append(close)
-      this.onClose()
     }
     await delayTimeout()
     this.alert.removeClass('open')
@@ -52,42 +61,27 @@ export default class Alert {
 
   async close(ms = this.duration) {
     await delayTimeout(ms)
-    closeAlert.call(this)
+    closeAlert(this.alert)
   }
 
-  onClose() {
-    const btn = this.alert.find('[close]')
-    const close = closeAlert.bind(this)
-    btn.on('click', close)
+  onClick(event) {
+    const $target = DOM.init(event.target)
+    if ($target.closest('[close]')) {
+      const alert = $target.closest('.alert')
+      closeAlert(alert)
+    }
   }
-}
 
-function keyToMethod(options) {
-  Object.entries(options).forEach(([key, value]) => {
-    this[key] = value
-  })
-}
-
-function initArgs(args) {
-  if (typeof args[0] == 'object') return keyToMethod.call(this, { ...DEFULTS, ...args[0] })
-  const options = {}
-  args.forEach(initOptions(options))
-  keyToMethod.call(this, { ...DEFULTS, ...options })
-}
-
-function initOptions(options) {
-  const keys = Object.keys(DEFULTS)
-  return function (option, i) {
-    const key = keys[i]
-    options[key] = option
+  onTransitionend(event) {
+    if (event.target.hasAttribute('style')) event.target.remove()
+    if (this.container.isEmpty) {
+      this.container.delete()
+      this.destroy()
+    }
   }
 }
 
-function closeAlert() {
-  const height = this.alert.getCoords().height
-  this.alert.css({ 'margin-top': -height + 'px', opacity: '0' })
-  this.alert.on('transitionend', () => {
-    this.alert.delete()
-    if (this.container.isEmpty) this.container.delete()
-  })
+function closeAlert($el) {
+  const height = $el.getCoords().height
+  $el.css({ 'margin-top': -height + 'px', opacity: '0' })
 }

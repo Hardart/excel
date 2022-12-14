@@ -1,0 +1,13 @@
+.pnz-pages {
+  display: flex;
+  justify-content: center;
+
+  li {
+    padding: 5px 7px;
+    color: #999;
+
+    &.active {
+      color: $dark;
+    }
+  }
+}

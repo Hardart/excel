@@ -26,20 +26,25 @@ export class Feed extends ExcelComponent {
   }
 
   toHTML() {
-    UI.alert('Непредвиденная ошибка, попробуйте перезагрузить страницу', 'warning')
-    UI.alert('ok', 'danger')
+    setTimeout(() => UI.alert('Непредвиденная ошибка, попробуйте перезагрузить страницу', 'danger'), 5000)
+    UI.alert({ text: 'Сеть восстановлена', autoClose: false, status: 'success' })
 
     const lottie = `
     <div class="flex flex-center hidden">
       <lottie-player autoplay loop mode="normal" src="https://assets4.lottiefiles.com/packages/lf20_l5qvxwtf.json" style="width: 50%"></lottie-player>
     </div>
     `
-    return [lottie, renderCards()].join('')
+
+    const menu = `<section class="section"><div class="card-body card-dark" pnz-nav></div></section>`
+    renderCards()
+    return [menu, lottie].join('')
   }
 
   init() {
     const cards = DOM.body.findAll('.card')
     showCards(cards)
+    // UI.pagination('.excel', { currentPage: 2, totalPages: 4738 }).console()
+    UI.burgermenu('[pnz-nav]')
   }
 }
 

@@ -1,0 +1,28 @@
+.burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.burger div {
+  height: 3px;
+  background: #fffccc;
+  transition: all 0.4s ease-in-out;
+}
+
+.animo .line1 {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.animo .line2 {
+  transform: translate(-50%);
+  opacity: 0;
+}
+
+.animo .line3 {
+  transform: rotate(-45deg) translate(6px, -6px);
+}

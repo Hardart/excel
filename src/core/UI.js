@@ -1,5 +1,4 @@
 import uiComponents from '@ui/'
-
 class UI {
   constructor() {
     this.prepare()
@@ -9,10 +8,18 @@ class UI {
     return new UI()
   }
 
+  static onlyOptions() {
+    return ['alert']
+  }
+
   prepare() {
     uiComponents.forEach(Component => {
       const name = Component.name.toLowerCase()
-      this[name] = (...options) => new Component(...options)
+      if (UI.onlyOptions().includes(this[name])) {
+        this[name] = (...options) => new Component(...options)
+      } else {
+        this[name] = (rootComponent = 'body', ...options) => new Component(rootComponent, ...options)
+      }
     })
   }
 }
