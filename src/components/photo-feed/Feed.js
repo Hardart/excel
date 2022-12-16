@@ -26,8 +26,8 @@ export class Feed extends ExcelComponent {
   }
 
   toHTML() {
-    setTimeout(() => UI.alert('Непредвиденная ошибка, попробуйте перезагрузить страницу', 'danger'), 5000)
     UI.alert({ text: 'Сеть восстановлена', autoClose: false, status: 'success' })
+    // setTimeout(() => UI.alert('Непредвиденная ошибка, попробуйте перезагрузить страницу', 'danger'), 5000)
 
     const lottie = `
     <div class="flex flex-center hidden">
@@ -43,7 +43,7 @@ export class Feed extends ExcelComponent {
   init() {
     const cards = DOM.body.findAll('.card')
     showCards(cards)
-    // UI.pagination('.excel', { currentPage: 2, totalPages: 4738 }).console()
+    UI.pagination('.excel', { currentPage: 5, totalPages: 4738 })
     UI.burgermenu('[pnz-nav]')
   }
 }

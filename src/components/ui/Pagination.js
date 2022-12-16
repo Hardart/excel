@@ -25,39 +25,48 @@ export default class Pagination extends UIListener {
   console() {}
 
   createPages() {
-    const startPages = createStartPages.bind(this)
-    const endPages = createEndPages.bind(this)
-    this.startPages = new Array(3).fill('').map(startPages)
-    this.endPages = new Array(2).fill('').map(endPages).reverse()
+    const pages = []
+    pages.push(createStartPages.call(this, 2))
+    switch (true) {
+      case this.currentPage == 3:
+        pages.push(createCurrentPages.call(this, 2, 0))
+        break
+      case this.currentPage > 3 && this.currentPage < 5:
+        pages.push(createCurrentPages.call(this, 3, 1))
+        break
+      case this.currentPage == 5:
+        pages.push(createCurrentPages.call(this, 4, 2))
+        break
+      case this.currentPage > 5:
+        pages.push(createDots())
+        pages.push(createCurrentPages.call(this, 3, 1))
+        break
+    }
+    // if (this.currentPage <= this.totalPages - 2) {
+    //   pages.push(createDots())
+    //   pages.push(createEndPages.call(this, 2))
+    // }
+
+    return pages
   }
 
   init() {
     super.init()
-    this.pages = this.list.findAll('li')
-    this.activePage = this.pages.find(el => el.hasClass('active'))
   }
 
-  createPaginateList(pages) {
-    this.list = DOM.create('ul', 'pnz-pages').append(pages)
-    this.list.append(createDots())
-    this.list.append(this.endPages.join(''))
+  paginationListBundle(pagesArray) {
+    if (!pagesArray) throw new Error('No pages for start')
+
+    this.list = DOM.create('ul', 'pnz-pages')
+    pagesArray.forEach(p => {
+      this.list.append(p.join(''))
+    })
     return this.list
   }
 
   renderComponent() {
-    const pagination = this.createPaginateList(this.startPages.join(''))
+    const pagination = this.paginationListBundle(this.createPages())
     this.$root.append(pagination)
-  }
-
-  clickOnPageItem(event) {
-    if (event.target.classList.contains('pnz-disabled')) return
-    const $el = event.target
-    console.log(this.activePage)
-    this.activePage.removeClass('active')
-    $el.addClass('active')
-    this.activePage = $el
-    this.currentPage = +$el.$node.innerText
-    isNearToDots.call(this, $el)
   }
 
   onClick(event) {
@@ -65,28 +74,39 @@ export default class Pagination extends UIListener {
   }
 }
 
-function createStartPages(_, index) {
+function createCurrentPages(pagesLength, startFrom) {
+  const mapPages = createCurrentPageElement(startFrom)
+  return pagesCount(pagesLength).map(mapPages.bind(this))
+}
+
+function createCurrentPageElement(startFrom) {
+  return function (_, index) {
+    const page = this.currentPage - startFrom + index
+    return `<li${page == this.currentPage ? ' class="active"' : ''}>${page}</li>`
+  }
+}
+
+function createStartPages(count) {
+  return pagesCount(count).map(createPageElement.bind(this))
+}
+
+function createPageElement(_, index) {
   const page = index + 1
-  return createPaginationElement.call(this, page)
+  return `<li${page == this.currentPage ? ' class="active"' : ''}>${page}</li>`
 }
 
-function createPaginationElement(pageN) {
-  return `<li${pageN == this.currentPage ? ' class="active"' : ''}>${pageN}</li>`
-}
+// function createEndPages(count) {
+//   return pagesCount(count).map(createEndPageElement.bind(this)).reverse()
+// }
 
-function createEndPages(_, index) {
-  return `<li>${this.totalPages - index}</li>`
-}
+// function createEndPageElement(_, index) {
+//   return `<li>${this.totalPages - index}</li>`
+// }
 
 function createDots() {
-  return `<li class="pnz-disabled">...</li>`
+  return [`<li class="pnz-disabled">...</li>`]
 }
 
-function isNearToDots(pageEl) {
-  if (pageEl.$node.nextSibling?.classList.contains('pnz-disabled')) {
-    const page = createPaginationElement.call(this, this.currentPage + 1)
-    pageEl.append(page, 'afterend')
-    this.init()
-    this.onClick()
-  }
+function pagesCount(count) {
+  return new Array(count).fill('')
 }
