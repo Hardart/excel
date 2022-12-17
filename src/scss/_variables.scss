@@ -1,20 +1,22 @@
 $light:                              #f2f2f2 !default;
 $dark:                               #2e2e2e !default;
 
-$primary:                            #548cd2 !default;
+
+$primary:                            #0559bb !default;
 $secondary:                          #181b1a !default;
 $success:                            #229b7a !default;
-$warning:                            #ff5e00 !default;
+$warning:                            #cc7700 !default;
 $muted:                              #e4e4e4 !default;
-$danger:                             #9d3a3a !default;
+$danger:                             #ac1111 !default;
 
-$breakpoint-small:                   640px !default;  // Phone landscape
-$breakpoint-medium:                  960px !default;  // Tablet Landscape
-$breakpoint-large:                   1200px !default; // Desktop
-$breakpoint-xlarge:                  1600px !default; // Large Screens
+$breakpoint-small:                   100px !default;  // Phone landscape
+$breakpoint-medium:                  370px !default;  // Tablet Landscape
+$breakpoint-large:                   400px !default; // Desktop
+$breakpoint-xlarge:                  450px !default; // Large Screens
 
-$animation-duration:                 150ms !default;
+$animation-duration:                 300ms !default;
 $global-border-radius:               10px;
+$global-border-color:                #ccc;
 
 //font-size
 $standart:                           0.875rem !default;
@@ -27,8 +29,15 @@ $breakpoints: (
   xl:          $breakpoint-xlarge,
 ) !default;
 
+$font-sizes: (
+  s:           13px,
+  m:           15px,
+  l:           16px,
+  xl:          17px,
+) !default;
 
 $theme-colors: (
+  default:     #fff,
   primary:     $primary,
   secondary:   $secondary,
   success:     $success,
@@ -41,6 +50,7 @@ $theme-colors: (
 
 
 $spacing: (
+  0:   0,
   1:   1px,
   2:   2px,
   3:   3px,

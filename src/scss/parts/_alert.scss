@@ -1,28 +1,24 @@
 .alert-container {
   position: fixed;
-  width: 200px;
-  top: 0;
-  left: 50%;
-  font-size: 14px;
-  transform: translateX(-50%);
+  top: 10px;
 }
 
 .alert {
   position: relative;
   display: block;
-  padding: 0.7em 1em;
-  font-size: 1em;
+  top: 0;
+  max-width: 90%;
+  padding: 1rem;
+  margin: 0 auto 0.5rem;
+  font-size: 1rem;
   font-weight: 500;
-  margin-top: 0.5em;
   overflow: hidden;
-  transition: all 300ms ease;
-
-  #{&}-text {
-    padding-right: 1.2em;
-  }
+  transition-property: top, opacity, margin;
+  transition-duration: 400ms;
+  transition-timing-function: ease;
 
   &.open {
-    margin-top: -50px;
+    top: -100px;
     opacity: 0;
   }
 

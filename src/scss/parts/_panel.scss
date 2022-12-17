@@ -1,0 +1,19 @@
+.panel {
+  display: flex;
+  padding: 10px;
+
+  &__time {
+    flex: content;
+    padding-right: 15px;
+    color: $danger;
+    font-weight: 600;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 2px solid $global-border-color;
+  }
+}

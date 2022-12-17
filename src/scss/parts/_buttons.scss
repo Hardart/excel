@@ -1,111 +1,98 @@
 .btn {
-   position: relative;
-   display: inline-block;
-   padding: 8px 20px;
-   color: #fff;
-   background-color: hsl(214, 84%, 56%);
-   font-size: 1rem;
-   font-weight: 600;
-   line-height: 1;
-   border-style: none;
-   outline: none;
-   text-align: center;
-   text-decoration: none;
-   transform: translate3d(0, 0, 0);
-   transition-property: transform opacity;
-   transition-duration: $animation-duration;
-   user-select: none;
-   appearance: none;
-   -webkit-user-select: none;
-   backface-visibility: hidden;
-   touch-action: manipulation;
-   overflow: hidden;
-   white-space: nowrap;   
-  
-   &:hover {
-      background-color: hsl(214, 84%, 46%);
-      box-shadow: 0 5px 30px rgba(0, 0, 0, .05), 
-                  0 1px 4px rgba(0, 0, 0, .05);
+  padding: 0 30px;
+  margin: 0;
+  border: none;
+  overflow: visible;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  border-radius: 0;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  line-height: 38px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.1s ease-in-out;
+  transition-property: color, background-color, border-color;
+
+  &:hover {
+    background-color: hsl(214, 84%, 46%);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.05);
+    opacity: 1;
+    transform: translateY(0);
+
+    &:after {
+      opacity: 0.5;
+    }
+  }
+
+  &:active {
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 0 10px 0 rgba(0, 0, 0, 0.1), 0 1px 4px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(2px);
+
+    &:after {
       opacity: 1;
-      transform: translateY(0);
-     
-      
-      &:after {
-         opacity: .5;
-      }
-   }
+    }
+  }
 
-   &:active {
-      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .1),
-                  0 0 10px 0 rgba(0, 0, 0, .1), 
-                  0 1px 4px -1px rgba(0, 0, 0, .1);
-      transform: translateY(2px);
-     
+  &:not(:disabled) {
+    cursor: pointer;
+  }
 
-      &:after {
-         opacity: 1;
-      }
-   }
+  &#{&}-close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    margin: 20px;
+    border-radius: 3px;
+    z-index: 1001;
+  }
 
-   &:not(:disabled) {
-      cursor: pointer;
-   }
+  &#{&}-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
 
-   &#{&}-close {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      top: 0;
-      right: 0;
-      padding: 5px;
-      margin: 20px;
-      border-radius: 3px;
-      z-index: 1001;
-   }
+    &:hover {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    &:active {
+      color: #ffffff;
+    }
+  }
 
-    &#{&}-icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
+  @each $color in map-keys($theme-colors) {
+    &-#{$color} {
+      @include set-colors(map-get($theme-colors, $color), 0%);
 
       &:hover {
-         color: rgba(255, 255, 255, 0.6);
+        @include set-colors(map-get($theme-colors, $color), 7%);
       }
+
       &:active {
-         color: #ffffff;
+        @include set-colors(map-get($theme-colors, $color), 12%);
       }
-   }
+    }
+  }
 
-   @each $color in map-keys($theme-colors) {
-      &-#{$color} {
-         @include set-colors(map-get($theme-colors, $color), 0%);
-   
-         &:hover {
-            @include set-colors(map-get($theme-colors, $color), 7%);
-         }
+  &-transparent {
+    background-color: transparent;
+  }
 
-         &:active {
-            @include set-colors(map-get($theme-colors, $color), 12%);
-         }
-      }
-   }
-
-   &-transparent {
-      background-color: transparent;
-   }
-
-   &:disabled {
-      color: shade($muted, 30%);
-      background-color: $muted;
-      transform: none;
-      box-shadow: none;      
-   }
+  &:disabled {
+    color: shade($muted, 30%);
+    background-color: $muted;
+    transform: none;
+    box-shadow: none;
+  }
 }
-
-
-

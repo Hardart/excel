@@ -1,6 +1,6 @@
-namespace UI {
+namespace UiHdrt {
   type AlertStatus = 'danger' | 'success' | 'warning'
-  export interface AlertOptions {
+  interface AlertOptions {
     text: string
     duration?: number | undefined
     autoClose?: boolean
@@ -20,4 +20,4 @@ namespace UI {
   const alert: Alert
 }
 
-export default UI
+export default UiHdrt

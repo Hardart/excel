@@ -1,12 +1,12 @@
-import uiComponents from '@ui/'
+import uiComponents from '../components/ui/index'
 
-class UI {
+class UiHdrt {
   constructor() {
     this.prepare()
   }
 
   static init() {
-    return new UI()
+    return new UiHdrt()
   }
 
   prepare() {
@@ -17,4 +17,4 @@ class UI {
   }
 }
 
-export default UI.init()
+export default UiHdrt.init()

@@ -3,7 +3,7 @@
 import DOM from '@core/Dom'
 import { ExcelComponent } from '@core/ExcelComponent'
 // import { delayTimeout } from '@core/helpers'
-import UI from '@core/ui'
+import UiHdrt from '@core/Ui'
 
 import { renderCards } from './feed.settings'
 
@@ -26,8 +26,7 @@ export class Feed extends ExcelComponent {
   }
 
   toHTML() {
-    UI.alert('Непредвиденная ошибка, попробуйте перезагрузить страницу', 'warning')
-    UI.alert('ok', 'danger')
+    UiHdrt.alert('Непредвиденная ошибка, попробуйте перезагрузить страницу', 'warning')
 
     const lottie = `
     <div class="flex flex-center hidden">
@@ -67,7 +66,7 @@ function intersectCards(entries, observer) {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return
     const $el = DOM.init(entry.target)
-    const $img = $el.find('img')
+    const $img = $el.find('[pnz-cover]')
     const src = $img.getAttr('data-src')
     $img.setAttr('src', src)
     $el.removeClass('hide')

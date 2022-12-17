@@ -1,15 +1,15 @@
 .section {
-   position: relative;
-   padding: 40px 0;
-   max-width: 100%;
-   
-   @each $color in map-keys($theme-colors) {
-      &-#{$color} {
-         @include set-colors(map-get($theme-colors, $color), 0%);
-      }
-   }
+  position: relative;
+  padding: 40px 0;
+  max-width: 100%;
 
-   &-collapse {
-      padding: 0;
-   }
+  @each $color in map-keys($theme-colors) {
+    &-#{$color} {
+      @include set-colors(map-get($theme-colors, $color), 0%);
+    }
+  }
+
+  &-collapse {
+    padding: 0;
+  }
 }

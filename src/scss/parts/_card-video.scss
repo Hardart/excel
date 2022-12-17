@@ -1,0 +1,113 @@
+.v-card {
+  position: relative;
+  @include display-flex(column);
+  cursor: default;
+
+  &-default {
+    color: $dark;
+    background-color: #fff;
+  }
+
+  &-h {
+    flex-direction: row;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &-media {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &.cover {
+      overflow: hidden;
+      position: relative;
+
+      [pnz-cover] {
+        max-width: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &.small {
+      max-width: 140px;
+    }
+  }
+
+  &-body,
+  &-header,
+  &-footer {
+    padding: 15px 20px;
+
+    @each $letter, $value in $gaps {
+      @media (min-width: map-get($breakpoints, $letter)) {
+        padding: $value;
+      }
+    }
+  }
+
+  &-group {
+    @include display-flex;
+    align-items: center;
+  }
+
+  #{&}__title {
+    display: inline;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    overflow-wrap: break-word;
+  }
+
+  &__text {
+    font-size: 0.75rem;
+    overflow-wrap: break-word;
+    margin-top: -1px;
+    line-height: 1.1;
+  }
+
+  &__time {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  &__badge {
+    position: absolute;
+    max-width: 80%;
+    top: 10px;
+    right: 10px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: $small;
+    text-transform: uppercase;
+    background-color: rgba(240, 248, 255, 0.201);
+
+    @media (min-width: $breakpoint-medium) {
+      top: 15px;
+      right: 15px;
+      font-size: $standart;
+      padding: 3px 7px;
+    }
+
+    @each $color in map-keys($theme-colors) {
+      &.badge-#{$color} {
+        @include set-colors(map-get($theme-colors, $color), 0%);
+      }
+    }
+  }
+
+  &-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  @each $color in map-keys($theme-colors) {
+    &-#{$color} {
+      @include set-colors(map-get($theme-colors, $color), 0%);
+    }
+  }
+}

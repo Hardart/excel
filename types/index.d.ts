@@ -1,3 +1,3 @@
-import UI from '@core/UI'
+import UiHdrt from '@core/'
 
-export default UI
+export default UiHdrt

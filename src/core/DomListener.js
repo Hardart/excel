@@ -1,4 +1,5 @@
 import { capitalizeFirst } from '@core/helpers'
+
 export class DOMListener {
   constructor(rootComponent, listeners = []) {
     if (!rootComponent) throw new Error('No root component passed')
