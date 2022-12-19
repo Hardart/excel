@@ -2,6 +2,7 @@ import { capitalizeFirst } from '@core/helpers'
 
 export class UIListener {
   constructor() {}
+
   initListeners() {
     this.listeners.forEach(listener => {
       const method = composeEventName(listener)

@@ -5,7 +5,7 @@ import { UIListener } from '@core/UiListener'
 import { initArgs } from './components.settings'
 
 const DEFULTS = {
-  text: 'Alert text',
+  text: 'Modal text',
   status: 'danger',
   duration: 3000,
   closable: true,
@@ -21,6 +21,7 @@ export default class Modal extends UIListener {
     this.createContainer()
     this.prepare()
     this.showModal()
+    this.init()
   }
 
   prepare() {
@@ -35,7 +36,10 @@ export default class Modal extends UIListener {
 
   prepareModal() {
     this.modal = DOM.create('div', 'modal', `modal-${this.status}`, 'open')
-    this.modal.append(DOM.create('div', 'modal-text').append(this.text))
+    const title = DOM.create('h3', 'modal__title').append(this.title)
+    const text = DOM.create('p', 'modal__text').append(this.text)
+    this.modal.append(title)
+    this.modal.append(text)
   }
 
   createContainer() {
@@ -64,8 +68,7 @@ export default class Modal extends UIListener {
   onClick(event) {
     const $target = DOM.init(event.target)
     if ($target.closest('[close]')) {
-      const alert = $target.closest('.alert')
-      closeAlert(alert)
+      this.modal.addClass('open')
     }
   }
 

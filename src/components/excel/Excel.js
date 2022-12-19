@@ -34,6 +34,9 @@ export default class Excel {
     this.components.forEach(component => component.init())
     setIconsSize()
     UI.pagination('.excel', { currentPage: 10, totalPages: 5000 })
-    UI.modal()
+    UI.modal(
+      // eslint-disable-next-line max-len
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus veniam ut autem, rem commodi saepe harum itaque dignissimos laudantium iste, soluta voluptatibus facere incidunt vitae similique sit corrupti ducimus nostrum.'
+    )
   }
 }

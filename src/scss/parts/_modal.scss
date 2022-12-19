@@ -1,6 +1,8 @@
 .modal-container {
   position: fixed;
   display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   align-items: center;
   justify-content: center;
   top: 0;
@@ -13,8 +15,26 @@
 .modal {
   display: block;
   position: relative;
-  min-width: 200px;
+  width: 90%;
   max-width: 430px;
-  height: 60%;
+  margin: 0 auto 0;
+  padding: 1em;
+  margin-top: 0;
+  opacity: 1;
   background-color: aqua;
+  transition: all 300ms ease 100ms;
+
+  &__title {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+  }
+
+  &__text {
+    font-size: 1em;
+  }
+
+  &.open {
+    margin-top: 100px;
+    opacity: 0;
+  }
 }
