@@ -3,7 +3,6 @@
 import DOM from '@core/Dom'
 import { ExcelComponent } from '@core/ExcelComponent'
 // import { delayTimeout } from '@core/helpers'
-import UI from '@core/ui'
 
 import { renderCards } from './feed.settings'
 
@@ -26,7 +25,6 @@ export class Feed extends ExcelComponent {
   }
 
   toHTML() {
-    UI.alert({ text: 'Сеть восстановлена', autoClose: false, status: 'success' })
     // setTimeout(() => UI.alert('Непредвиденная ошибка, попробуйте перезагрузить страницу', 'danger'), 5000)
 
     const lottie = `
@@ -34,17 +32,13 @@ export class Feed extends ExcelComponent {
       <lottie-player autoplay loop mode="normal" src="https://assets4.lottiefiles.com/packages/lf20_l5qvxwtf.json" style="width: 50%"></lottie-player>
     </div>
     `
-
-    const menu = `<section class="section"><div class="card-body card-dark" pnz-nav></div></section>`
     renderCards()
-    return [menu, lottie].join('')
+    return [lottie].join('')
   }
 
   init() {
     const cards = DOM.body.findAll('.card')
     showCards(cards)
-    UI.pagination('.excel', { currentPage: 5, totalPages: 4738 })
-    UI.burgermenu('[pnz-nav]')
   }
 }
 

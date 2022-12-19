@@ -1,5 +1,5 @@
 import Alert from './Alert'
-import BurgerMenu from './Burger-Menu'
+import Modal from './Modal'
 import Pagination from './Pagination'
 
-export default [Alert, BurgerMenu, Pagination]
+export default [Alert, Pagination, Modal]

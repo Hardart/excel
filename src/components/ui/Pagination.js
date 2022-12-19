@@ -17,17 +17,18 @@ export default class Pagination extends UIListener {
     super()
     this.$root = rootComponent == 'body' ? DOM.body : DOM.init(rootComponent)
     initArgs.call(this, DEFULTS, args)
-    this.createPages()
     this.renderComponent()
     this.init()
   }
 
-  console() {}
-
   createPages() {
     const pages = []
     pages.push(createStartPages.call(this, 2))
+
     switch (true) {
+      case this.currentPage == 2:
+        pages.push(createCurrentPages.call(this, 1, -1))
+        break
       case this.currentPage == 3:
         pages.push(createCurrentPages.call(this, 2, 0))
         break
@@ -37,15 +38,32 @@ export default class Pagination extends UIListener {
       case this.currentPage == 5:
         pages.push(createCurrentPages.call(this, 4, 2))
         break
+    }
+
+    pages.push(createDots())
+
+    switch (true) {
+      case this.currentPage == this.totalPages - 2:
+        pages.push(createCurrentPages.call(this, 2, 1))
+        break
+      case this.currentPage == this.totalPages - 1:
+        pages.push(createCurrentPages.call(this, 3, 1))
+        break
+      case this.currentPage == this.totalPages:
+        pages.push(createCurrentPages.call(this, 2, 1))
+        break
       case this.currentPage > 5:
-        pages.push(createDots())
         pages.push(createCurrentPages.call(this, 3, 1))
         break
     }
-    // if (this.currentPage <= this.totalPages - 2) {
-    //   pages.push(createDots())
-    //   pages.push(createEndPages.call(this, 2))
-    // }
+
+    if (this.currentPage > 5 && this.currentPage <= this.totalPages - 4) {
+      pages.push(createDots())
+    }
+
+    if (this.currentPage < this.totalPages - 1) {
+      pages.push(createEndPages.call(this, 2))
+    }
 
     return pages
   }
@@ -95,13 +113,13 @@ function createPageElement(_, index) {
   return `<li${page == this.currentPage ? ' class="active"' : ''}>${page}</li>`
 }
 
-// function createEndPages(count) {
-//   return pagesCount(count).map(createEndPageElement.bind(this)).reverse()
-// }
+function createEndPages(count) {
+  return pagesCount(count).map(createEndPageElement.bind(this)).reverse()
+}
 
-// function createEndPageElement(_, index) {
-//   return `<li>${this.totalPages - index}</li>`
-// }
+function createEndPageElement(_, index) {
+  return `<li>${this.totalPages - index}</li>`
+}
 
 function createDots() {
   return [`<li class="pnz-disabled">...</li>`]

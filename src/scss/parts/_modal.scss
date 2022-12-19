@@ -1,0 +1,20 @@
+.modal-container {
+  position: fixed;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modal {
+  display: block;
+  position: relative;
+  min-width: 200px;
+  max-width: 430px;
+  height: 60%;
+  background-color: aqua;
+}

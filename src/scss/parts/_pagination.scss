@@ -1,6 +1,9 @@
 .pnz-pages {
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: 0.9em;
+  line-height: 1;
 
   li {
     padding: 5px 7px;
@@ -8,6 +11,9 @@
 
     &.active {
       color: $dark;
+      font-size: 1.1em;
+      font-weight: 500;
+      border-bottom: solid red 2px;
     }
   }
 }

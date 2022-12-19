@@ -1,5 +1,6 @@
 import DOM from '@core/Dom'
 import { setIconsSize } from '@core/helpers'
+import UI from '@core/UI'
 export default class Excel {
   constructor(selector, options) {
     this.$app = DOM.init(selector)
@@ -32,5 +33,7 @@ export default class Excel {
     this.$app.append(this.componentsCompose())
     this.components.forEach(component => component.init())
     setIconsSize()
+    UI.pagination('.excel', { currentPage: 10, totalPages: 5000 })
+    UI.modal()
   }
 }
